@@ -179,9 +179,39 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
 .footer-grid { display:grid; grid-template-columns:1fr auto; gap:26px; align-items:start; }
 .footer-side { display:flex; align-items:center; gap:16px; }
 .footer-links { display:flex; flex-wrap:wrap; gap:14px; justify-content:flex-end; }
-.hidden-coin { width:30px; height:30px; flex:0 0 30px; display:grid; place-items:center; border-radius:50%; color:#d8ae59; border:1px solid rgba(230,184,92,.55); background:radial-gradient(circle at 35% 30%,#fff4c1 0 5%,#e3b552 10%,#8d5a11 56%,#3b2408 100%); box-shadow:0 3px 12px rgba(0,0,0,.35),inset 0 0 0 2px rgba(255,226,142,.22); opacity:.66; transform:rotate(-8deg); transition:.18s ease; }
-.hidden-coin span { color:#2f1b05; font-size:.7rem; text-shadow:0 1px rgba(255,235,178,.35); }
-.hidden-coin:hover,.hidden-coin:focus { opacity:1; transform:rotate(5deg) scale(1.07); color:#2f1b05; }
+.hidden-coin {
+  position:relative;
+  width:54px;
+  height:54px;
+  flex:0 0 54px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  opacity:.78;
+  transition:transform .22s ease,filter .22s ease,opacity .22s ease;
+  isolation:isolate;
+  -webkit-tap-highlight-color:transparent;
+}
+.hidden-coin::before {
+  content:"";
+  position:absolute;
+  inset:-10%;
+  z-index:0;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(86,142,255,.55),transparent 68%);
+  opacity:0;
+  transform:scale(.85);
+  transition:opacity .22s ease,transform .22s ease;
+  filter:blur(10px);
+}
+.hidden-coin svg { width:100%; height:100%; display:block; overflow:visible; position:relative; z-index:1; }
+.hidden-coin:hover,.hidden-coin:focus-visible {
+  opacity:1;
+  transform:translateY(-2px) scale(1.04);
+  filter:brightness(1.10);
+  outline:none;
+}
+.hidden-coin:hover::before,.hidden-coin:focus-visible::before { opacity:.85; transform:scale(1.02); }
 
 @media (max-width:1050px) {
   .header-inner { flex-wrap:wrap; padding:10px 0; }
@@ -223,6 +253,7 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
   .footer-grid { grid-template-columns:1fr; }
   .footer-side { justify-content:space-between; }
   .footer-links { justify-content:flex-start; }
+  .hidden-coin { width:48px; height:48px; flex-basis:48px; }
   .chart-card { padding:14px; }
   .series-toggle,.grade-toggle,.range-control,.chart-reset { flex:1 1 auto; justify-content:flex-start; }
   .market-chart { min-width:700px; }

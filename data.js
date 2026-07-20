@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 4,
+  "revision": 5,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -540,67 +540,35 @@ window.FFTCG_DATA = {
       "gradeGroup": "PSA 10"
     }
   ],
-  "websiteBuild": "v7",
+  "websiteBuild": "v8",
   "cloudPopulation": {
     "card": "Cloud 1-182L",
-    "psaWave1FoilTotal": 130,
-    "psaWave1Total": 7,
-    "psaCombinedTracked": 137,
-    "beckettPremiumFoilTotal": 190,
-    "combinedFoilLabelTotal": 320,
-    "combinedTrackedTotal": 327,
     "psa10Official": 91,
     "psa10Exclusions": 5,
     "psa10Adjusted": 86,
-    "psaWave1FoilBreakdown": [
-      {
-        "grade": "PSA 10",
-        "count": 87
-      },
-      {
-        "grade": "PSA 9",
-        "count": 34
-      },
-      {
-        "grade": "PSA 8",
-        "count": 5
-      },
-      {
-        "grade": "PSA 7",
-        "count": 4
-      }
+    "notes": [
+      "The matching-grade comparison uses PSA 10 and Beckett 9.5 or higher only.",
+      "Beckett 9.5+ comprises 6 Black Label 10s, 35 Pristine 10s and 107 BGS 9.5s.",
+      "The official combined high-grade basis is 239 grading entries: 91 PSA 10 plus 148 Beckett 9.5+.",
+      "Applying the five accepted PSA exclusions produces an archive-adjusted combined estimate of 234.",
+      "Beckett’s Premium Foil population combines both print configurations, and combined totals are grading-company entries rather than unique physical cards."
     ],
-    "beckettBreakdown": [
+    "beckett95PlusTotal": 148,
+    "combinedHighGradeOfficial": 239,
+    "combinedHighGradeAdjusted": 234,
+    "beckett95PlusBreakdown": [
       {
-        "grade": "BGS 10",
+        "grade": "Black Label 10",
         "count": 6
       },
       {
-        "grade": "BGS 9.5",
+        "grade": "Pristine 10",
         "count": 35
       },
       {
-        "grade": "BGS 9",
+        "grade": "BGS 9.5",
         "count": 107
-      },
-      {
-        "grade": "BGS 8.5",
-        "count": 30
-      },
-      {
-        "grade": "BGS 8",
-        "count": 11
-      },
-      {
-        "grade": "BGS 7.5",
-        "count": 1
       }
-    ],
-    "notes": [
-      "The legacy PSA “Foil” total of 130 is the same underlying population as the Wave 1-Foil row and is not counted again.",
-      "The separate PSA Wave 1 row contributes 7 additional grading entries.",
-      "The Beckett Premium Foil population combines both print configurations because Beckett does not separate Wave 1 and Wave 2 in that population total.",
-      "The combined figure represents tracked grading-company entries, not a count of unique physical cards."
     ]
   },
   "siteStatus": [
@@ -649,6 +617,16 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "20 Jul 2026",
+      "title": "Website revision 5 · build v8",
+      "items": [
+        "Restricted the Cloud population comparison to matching high grades: PSA 10 and Beckett 9.5+.",
+        "Corrected the Beckett 9.5+ breakdown to 6 Black Label 10, 35 Pristine 10 and 107 BGS 9.5.",
+        "Added official and archive-adjusted combined high-grade totals of 239 and 234.",
+        "Removed the unused PSA 9 control from the Cloud market chart."
+      ]
+    },
     {
       "date": "20 Jul 2026",
       "title": "Website revision 4 · build v7",

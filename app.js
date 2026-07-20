@@ -36,10 +36,10 @@
   const cloud = data.cloudPopulation || {};
   document.querySelectorAll('[data-cloud-summary]').forEach(host => {
     host.innerHTML = [
-      ['PSA Wave 1-Foil', cloud.psaWave1FoilTotal, 'all grades'],
-      ['PSA Wave 1 row', cloud.psaWave1Total, 'separate row'],
-      ['Beckett Premium Foil', cloud.beckettPremiumFoilTotal, 'all grades'],
-      ['Combined tracked', cloud.combinedTrackedTotal, 'grading entries', true]
+      ['PSA 10 official', cloud.psa10Official, 'official basis'],
+      ['PSA 10 adjusted', cloud.psa10Adjusted, `${cloud.psa10Exclusions} exclusions`],
+      ['Beckett 9.5+', cloud.beckett95PlusTotal, 'matching high grades'],
+      ['Combined high-grade', cloud.combinedHighGradeOfficial, `${cloud.combinedHighGradeAdjusted} adjusted`, true]
     ].map(([label,value,note,featured]) => `<div class="cloud-stat${featured?' featured':''}"><span>${esc(label)}</span><strong>${esc(value)}</strong><span>${esc(note)}</span></div>`).join('');
   });
 
@@ -49,8 +49,12 @@
       host.innerHTML = rows.map(r => `<div class="mini-bar"><span class="mini-bar-label">${esc(r.grade)}</span><span class="mini-bar-track"><span class="mini-bar-fill" style="width:${(r.count/max*100).toFixed(1)}%"></span></span><span class="mini-bar-value">${r.count}</span></div>`).join('');
     });
   }
-  renderBars('[data-psa-breakdown]', cloud.psaWave1FoilBreakdown || []);
-  renderBars('[data-beckett-breakdown]', cloud.beckettBreakdown || []);
+  renderBars('[data-psa-treatment]', [
+    {grade:'Official', count:cloud.psa10Official},
+    {grade:'Excluded', count:cloud.psa10Exclusions},
+    {grade:'Adjusted', count:cloud.psa10Adjusted}
+  ]);
+  renderBars('[data-beckett-high-grade]', cloud.beckett95PlusBreakdown || []);
   document.querySelectorAll('[data-cloud-notes]').forEach(host => {
     host.innerHTML = '<strong>Population treatment</strong><ul>' + (cloud.notes || []).map(n => `<li>${esc(n)}</li>`).join('') + '</ul>';
   });
@@ -68,7 +72,7 @@
     <tr data-te-row="${esc([r.id,r.subject,r.role,r.status].join(' '))}"><td><a class="record-link" href="${esc(r.url)}"><strong>${esc(r.id)}</strong></a></td><td>${esc(r.subject)}</td><td>${esc(r.role)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td></tr>`).join('');
 
   const marketBody = document.querySelector('[data-market-body]');
-  if (marketBody) marketBody.innerHTML = (data.marketRecords || []).map(r => `
+  if (marketBody) marketBody.innerHTML = (data.marketRecords || []).filter(r => ['PSA 10','Beckett'].includes(r.gradeGroup)).map(r => `
     <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td><a href="${esc((data.marketSource || {}).url || '#')}">${esc(r.id)}</a></td></tr>`).join('');
 
   const trueCount = (data.marketRecords || []).filter(r => r.category === 'True Wave 1').length;
@@ -182,7 +186,7 @@
     const range = document.querySelector('[data-market-range]');
     const allButton = document.querySelector('[data-chart-all]');
     const colours = {'True Wave 1':'#e6b85c','Mislabelled Wave 2':'#52b7ff'};
-    const dash = {'PSA 10':'','PSA 9':'10 7','Beckett':'2 8','Other':'6 5'};
+    const dash = {'PSA 10':'','Beckett':'2 8','Other':'6 5'};
 
     gradeToggles.forEach(toggle => {
       const count = (data.marketRecords || []).filter(r => r.gradeGroup === toggle.value && r.plotted && Number.isFinite(r.price)).length;
@@ -226,7 +230,7 @@
       out+=`<text x="20" y="${height/2}" transform="rotate(-90 20 ${height/2})" text-anchor="middle" class="chart-axis-title">Recorded price (USD)</text>`;
 
       for (const category of ['True Wave 1','Mislabelled Wave 2']) {
-        for (const gradeGroup of ['PSA 10','PSA 9','Beckett','Other']) {
+        for (const gradeGroup of ['PSA 10','Beckett','Other']) {
           const series=records.filter(r=>r.category===category&&r.gradeGroup===gradeGroup).sort((a,b)=>a.date.localeCompare(b.date));
           if (!series.length) continue;
           if (series.length > 1) {

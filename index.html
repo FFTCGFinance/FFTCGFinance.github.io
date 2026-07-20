@@ -63,7 +63,7 @@
 </section>
 <section class="section section-muted">
   <div class="wrap">
-    <div class="section-head"><div><div class="kicker">Cloud 1-182L</div><h2>Combined tracked population</h2></div><p>A compact digest-style view of the PSA and Beckett population reports.</p></div>
+    <div class="section-head"><div><div class="kicker">Cloud 1-182L</div><h2>Matching high-grade population</h2></div><p>A like-for-like comparison using PSA 10 and Beckett 9.5 or higher.</p></div>
     <div class="cloud-summary-grid" data-cloud-summary></div>
     <div class="hero-actions"><a class="btn" href="populations.html#cloud-population-summary">View the full breakdown</a></div>
   </div>
@@ -111,7 +111,56 @@
         <a href="changelog.html">Change log</a>
         <a href="mailto:research@fftcgfinance.com">Contact</a>
       </div>
-      <a class="hidden-coin" href="https://stellazzio.com/" target="_blank" rel="noopener" aria-label="Open the hidden coin" data-hidden-coin><span aria-hidden="true">✦</span></a>
+      <a class="hidden-coin" href="https://stellazzio.com/" target="_blank" rel="noopener"
+   aria-label="Open the hidden coin" data-hidden-coin>
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <linearGradient id="secretCoinRim" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#fff4bf"/>
+        <stop offset="16%" stop-color="#d89f45"/>
+        <stop offset="38%" stop-color="#f8dda1"/>
+        <stop offset="68%" stop-color="#87501b"/>
+        <stop offset="100%" stop-color="#f8dda1"/>
+      </linearGradient>
+      <radialGradient id="secretCoinCenter" cx="34%" cy="23%" r="78%">
+        <stop offset="0%" stop-color="#234ba8"/>
+        <stop offset="58%" stop-color="#0d1b43"/>
+        <stop offset="100%" stop-color="#060d1c"/>
+      </radialGradient>
+      <filter id="secretCoinShadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#000" flood-opacity=".55"/>
+      </filter>
+      <filter id="secretCoinEmboss" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="0" stdDeviation=".45" flood-color="#fff8d8" flood-opacity=".55"/>
+        <feDropShadow dx="0" dy=".8" stdDeviation=".4" flood-color="#2f1904" flood-opacity=".85"/>
+      </filter>
+    </defs>
+    <g filter="url(#secretCoinShadow)">
+      <circle cx="50" cy="50" r="47" fill="url(#secretCoinRim)"/>
+      <circle cx="50" cy="50" r="43.2" fill="none" stroke="#fff0bc" stroke-opacity=".38" stroke-width="1"/>
+      <circle cx="50" cy="50" r="40.5" fill="url(#secretCoinCenter)" stroke="#fff0bc" stroke-opacity=".22" stroke-width=".8"/>
+      <circle cx="50" cy="50" r="35.8" fill="none" stroke="#f3d284" stroke-opacity=".82" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="31.8" fill="none" stroke="#f3d284" stroke-opacity=".18" stroke-width=".8"/>
+      <ellipse cx="36" cy="25" rx="13" ry="7" fill="#ffffff" opacity=".13"/>
+      <circle cx="25" cy="23" r="2" fill="#fff7d8" opacity=".8"/>
+      <g fill="#f3d284" opacity=".8">
+        <circle cx="50" cy="9.2" r="1.15"/><circle cx="67.2" cy="12.9" r="1.05"/><circle cx="80.6" cy="23.4" r="1.05"/>
+        <circle cx="87.4" cy="39.6" r="1.05"/><circle cx="86.2" cy="57.2" r="1.05"/><circle cx="77.2" cy="72.8" r="1.05"/>
+        <circle cx="61.2" cy="82.8" r="1.05"/><circle cx="43.4" cy="85.9" r="1.05"/><circle cx="26.6" cy="81.2" r="1.05"/>
+        <circle cx="14.5" cy="68.6" r="1.05"/><circle cx="10.7" cy="51.1" r="1.05"/><circle cx="14.6" cy="33.9" r="1.05"/>
+        <circle cx="25.6" cy="19.8" r="1.05"/><circle cx="41.9" cy="11.2" r="1.05"/>
+      </g>
+      <g stroke="#f3d284" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+         fill="none" filter="url(#secretCoinEmboss)">
+        <path d="M50 34 V66"/>
+        <path d="M41 39 C45 35,55 35,59 39"/>
+        <path d="M41 61 C45 65,55 65,59 61"/>
+        <path d="M37 50 H63"/>
+        <path d="M57 42 C60 45,61 50,59 54 C57 58,53 60,49 59"/>
+      </g>
+    </g>
+  </svg>
+</a>
     </div>
   </div>
 </footer>

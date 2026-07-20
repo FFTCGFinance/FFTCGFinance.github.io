@@ -1,4 +1,4 @@
-# FFTCGFinance website — v7
+# FFTCGFinance website — v8
 
 A deploy-ready static build for `fftcgfinance.com`.
 
@@ -24,3 +24,9 @@ Upload only `data.js` when the structure and design have not changed.
 - HTML files — page structure
 
 Plausible analytics remains enabled on every page.
+
+## v8 focus
+
+- Cloud population comparison is now PSA 10 versus Beckett 9.5+.
+- The market chart no longer exposes a PSA 9 control.
+- The homepage Easter egg uses the established Stellazzio coin treatment.
