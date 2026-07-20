@@ -1,514 +1,292 @@
-window.FFTCG_DATA = {
-  "reviewed": "20 July 2026",
-  "revision": 3,
-  "populations": [
-    {
-      "card": "Cloud 1-182L",
-      "scope": "English Wave 1-labelled rows · PSA 10",
-      "official": 91,
-      "exclusions": 5,
-      "adjusted": 86,
-      "record": "MA-025",
-      "status": "Current"
-    },
-    {
-      "card": "Lightning 1-141L",
-      "scope": "English Wave 1-Foil · PSA 10",
-      "official": 35,
-      "exclusions": 1,
-      "adjusted": 34,
-      "record": "MA-037",
-      "status": "Current"
-    },
-    {
-      "card": "Jecht 1-015L",
-      "scope": "English Wave 1-Foil · PSA 10",
-      "official": 27,
-      "exclusions": 1,
-      "adjusted": 26,
-      "record": "MA-037",
-      "status": "Current"
-    },
-    {
-      "card": "Aerith 1-064R",
-      "scope": "English Wave 1-Foil · PSA 10",
-      "official": 25,
-      "exclusions": 2,
-      "adjusted": 23,
-      "record": "MA-037",
-      "status": "Current"
+(function () {
+  const data = window.FFTCG_DATA || {};
+  const esc = value => String(value ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const slug = value => String(value).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const badgeClass = status => /pending/i.test(status) ? 'pending' : /current|active|reviewed/i.test(status) ? '' : 'neutral';
+
+  document.querySelectorAll('[data-reviewed]').forEach(el => el.textContent = data.reviewed || '—');
+  document.querySelectorAll('[data-revision]').forEach(el => el.textContent = data.revision || '—');
+
+  const siteStatus = document.querySelector('[data-site-status]');
+  if (siteStatus) {
+    siteStatus.innerHTML = (data.siteStatus || []).map(item => `
+      <div class="status-item">
+        <div class="status-line"><strong>${esc(item.label)}</strong>${item.state === 'active' ? '<span class="badge">Active</span>' : ''}</div>
+        <span>${item.state === 'date' ? esc(item.value) : 'maintained record series'}</span>
+      </div>`).join('');
+  }
+
+  const popBody = document.querySelector('[data-population-body]');
+  if (popBody) {
+    popBody.innerHTML = (data.populations || []).map(r => `
+      <tr id="pop-${slug(r.card)}" data-search-row="${esc([r.card,r.scope,r.record,r.status].join(' '))}">
+        <td><strong>${esc(r.card)}</strong><div class="small">${esc(r.scope)}</div></td>
+        <td class="num">${r.official}</td><td class="num">${r.exclusions}</td><td class="num">${r.adjusted}</td>
+        <td>${esc(r.record)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td>
+      </tr>`).join('');
+  }
+
+  const homeRecords = document.querySelector('[data-home-records]');
+  if (homeRecords) {
+    homeRecords.innerHTML = `<div class="record record-head"><div>Card</div><div>Official</div><div>Exclusions</div><div>Adjusted</div><div>Status</div></div>${(data.populations || []).map(r => `
+      <div class="record"><div class="record-name"><strong>${esc(r.card)}</strong><span>${esc(r.scope)}</span></div>
+      <div class="metric"><strong>${r.official}</strong><span>official</span></div><div class="metric"><strong>${r.exclusions}</strong><span>excluded</span></div><div class="metric"><strong>${r.adjusted}</strong><span>adjusted</span></div><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></div>`).join('')}`;
+  }
+
+  const cloud = data.cloudPopulation || {};
+  document.querySelectorAll('[data-cloud-summary]').forEach(host => {
+    host.innerHTML = [
+      ['PSA Wave 1-Foil', cloud.psaWave1FoilTotal, 'all grades'],
+      ['PSA Wave 1 row', cloud.psaWave1Total, 'separate row'],
+      ['Beckett Premium Foil', cloud.beckettPremiumFoilTotal, 'all grades'],
+      ['Combined tracked', cloud.combinedTrackedTotal, 'grading entries', true]
+    ].map(([label,value,note,featured]) => `<div class="cloud-stat${featured?' featured':''}"><span>${esc(label)}</span><strong>${esc(value)}</strong><span>${esc(note)}</span></div>`).join('');
+  });
+
+  function renderBars(selector, rows) {
+    document.querySelectorAll(selector).forEach(host => {
+      const max = Math.max(...rows.map(r => r.count), 1);
+      host.innerHTML = rows.map(r => `<div class="mini-bar"><span class="mini-bar-label">${esc(r.grade)}</span><span class="mini-bar-track"><span class="mini-bar-fill" style="width:${(r.count/max*100).toFixed(1)}%"></span></span><span class="mini-bar-value">${r.count}</span></div>`).join('');
+    });
+  }
+  renderBars('[data-psa-breakdown]', cloud.psaWave1FoilBreakdown || []);
+  renderBars('[data-beckett-breakdown]', cloud.beckettBreakdown || []);
+  document.querySelectorAll('[data-cloud-notes]').forEach(host => {
+    host.innerHTML = '<strong>Population treatment</strong><ul>' + (cloud.notes || []).map(n => `<li>${esc(n)}</li>`).join('') + '</ul>';
+  });
+
+  const maBody = document.querySelector('[data-ma-body]');
+  if (maBody) maBody.innerHTML = (data.archiveRecords || []).map(r => `
+    <tr data-ma-row="${esc([r.id,r.subject,r.role,r.status].join(' '))}"><td><a class="record-link" href="${esc(r.url)}"><strong>${esc(r.id)}</strong></a></td><td>${esc(r.subject)}</td><td>${esc(r.role)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td></tr>`).join('');
+
+  const subBody = document.querySelector('[data-sub-body]');
+  if (subBody) subBody.innerHTML = (data.submissions || []).map(r => `
+    <tr data-sub-row="${esc([r.id,r.subject,r.status,r.result].join(' '))}"><td><a class="record-link" href="${esc(r.url)}"><strong>${esc(r.id)}</strong></a></td><td>${esc(r.subject)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td><td>${esc(r.result)}</td></tr>`).join('');
+
+  const teBody = document.querySelector('[data-te-body]');
+  if (teBody) teBody.innerHTML = (data.trenoRecords || []).map(r => `
+    <tr data-te-row="${esc([r.id,r.subject,r.role,r.status].join(' '))}"><td><a class="record-link" href="${esc(r.url)}"><strong>${esc(r.id)}</strong></a></td><td>${esc(r.subject)}</td><td>${esc(r.role)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td></tr>`).join('');
+
+  const marketBody = document.querySelector('[data-market-body]');
+  if (marketBody) marketBody.innerHTML = (data.marketRecords || []).map(r => `
+    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td><a href="${esc((data.marketSource || {}).url || '#')}">${esc(r.id)}</a></td></tr>`).join('');
+
+  const trueCount = (data.marketRecords || []).filter(r => r.category === 'True Wave 1').length;
+  const wave2Count = (data.marketRecords || []).filter(r => r.category === 'Mislabelled Wave 2').length;
+  const plottedCount = (data.marketRecords || []).filter(r => r.plotted && Number.isFinite(r.price)).length;
+  document.querySelectorAll('[data-true-count]').forEach(el => el.textContent = trueCount);
+  document.querySelectorAll('[data-wave2-count]').forEach(el => el.textContent = wave2Count);
+  document.querySelectorAll('[data-plotted-count]').forEach(el => el.textContent = plottedCount);
+
+  document.querySelectorAll('[data-search]').forEach(input => {
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      const selector = input.dataset.search;
+      let visible = 0;
+      document.querySelectorAll(selector).forEach(el => {
+        const attrs = ['data-search-row','data-ma-row','data-sub-row','data-te-row'];
+        const hay = (attrs.map(a => el.getAttribute(a)).find(Boolean) || el.textContent || '').toLowerCase();
+        const show = !q || hay.includes(q);
+        el.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      const empty = document.querySelector(input.dataset.empty || '');
+      if (empty) empty.classList.toggle('hidden', visible !== 0);
+    });
+  });
+
+  initGlobalSearch();
+  initAnalytics();
+  initMarketChart();
+  renderChangelog();
+
+  function buildSearchIndex() {
+    const rows = [...(data.searchPages || [])];
+    (data.populations || []).forEach(r => rows.push({type:'Population',title:r.card,description:`${r.record} · official ${r.official}, adjusted ${r.adjusted}`,url:`populations.html#pop-${slug(r.card)}`,keywords:`${r.scope} ${r.status}`}));
+    (data.archiveRecords || []).forEach(r => rows.push({type:'MA',title:`${r.id} — ${r.subject}`,description:r.role,url:r.url,keywords:r.status}));
+    (data.submissions || []).forEach(r => rows.push({type:'SUB',title:`${r.id} — ${r.subject}`,description:`${r.status} · ${r.result}`,url:r.url,keywords:r.status}));
+    (data.trenoRecords || []).forEach(r => rows.push({type:'TE',title:`${r.id} — ${r.subject}`,description:r.role,url:r.url,keywords:r.status}));
+    return rows.map(r => ({...r,hay:`${r.type} ${r.title} ${r.description||''} ${r.keywords||''}`.toLowerCase()}));
+  }
+
+  function initGlobalSearch() {
+    const index = buildSearchIndex();
+    document.querySelectorAll('[data-global-search-wrap]').forEach(wrap => {
+      const input = wrap.querySelector('[data-global-search]');
+      const results = wrap.querySelector('[data-global-results]');
+      if (!input || !results) return;
+      const close = () => results.classList.add('hidden');
+      const render = () => {
+        const q = input.value.trim().toLowerCase();
+        if (!q) return close();
+        const matches = index.filter(item => item.hay.includes(q)).slice(0,8);
+        results.innerHTML = matches.length ? matches.map(item => `<a class="global-result" role="option" href="${esc(item.url)}"><strong>${esc(item.title)}</strong><span>${esc(item.type)} · ${esc(item.description || '')}</span></a>`).join('') : '<div class="global-no-results">No matching records.</div>';
+        results.classList.remove('hidden');
+        if (window.FFTCG_TRACK && q.length >= 3) window.FFTCG_TRACK('Archive Search', {query:q,results:matches.length});
+      };
+      input.addEventListener('input', render);
+      input.addEventListener('focus', render);
+      document.addEventListener('click', e => { if (!wrap.contains(e.target)) close(); });
+      input.addEventListener('keydown', e => { if (e.key === 'Escape') { close(); input.blur(); } });
+    });
+  }
+
+  function renderChangelog() {
+    document.querySelectorAll('[data-changelog]').forEach(host => {
+      host.innerHTML = (data.changelog || []).map(entry => `<div class="timeline-item"><div class="date">${esc(entry.date)}</div><div><h3>${esc(entry.title)}</h3><ul>${(entry.items||[]).map(item=>`<li>${esc(item)}</li>`).join('')}</ul></div></div>`).join('');
+    });
+  }
+
+  function initAnalytics() {
+    const track = (eventName, props = {}) => {
+      if (typeof window.plausible === 'function') window.plausible(eventName, {props});
+    };
+    window.FFTCG_TRACK = track;
+
+    document.addEventListener('click', event => {
+      const coin = event.target.closest('[data-hidden-coin]');
+      if (coin) {
+        track('Hidden Coin Clicked', {location:'Footer'});
+        return;
+      }
+      const link = event.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href') || '';
+      const label = (link.textContent || '').trim().replace(/\s+/g, ' ').slice(0,120);
+      if (/reddit\.com\/r\/FFTCGFinance/i.test(href)) {
+        const record = (label.match(/\b(?:MA|SUB|TE)-?\d{3}\b/i) || href.match(/\b(?:ma|sub|te)-?\d{3}\b/i) || [])[0] || 'General';
+        if (/\bMA-?\d{3}\b/i.test(record)) track('MA Record Click', {record:record.toUpperCase(),label});
+        else if (/\bSUB-?\d{3}\b/i.test(record)) track('SUB Record Click', {record:record.toUpperCase(),label});
+        else if (/\bTE-?\d{3}\b/i.test(record)) track('TE Record Click', {record:record.toUpperCase(),label});
+        else track('Reddit Click', {label});
+        return;
+      }
+      if (/youtube\.com\/@FFTCGFinance/i.test(href)) track('Social Click', {platform:'YouTube'});
+      else if (/github\.com\/FFTCGFinance/i.test(href)) track('Social Click', {platform:'GitHub'});
+      else if (/^mailto:/i.test(href)) track('Contact Click', {address:href.replace(/^mailto:/i,'')});
+      else if (/^https?:\/\//i.test(href) && !/fftcgfinance\.com/i.test(href)) track('Outbound Link Click', {url:href,label});
+    });
+
+    const marketDetails = document.querySelector('.data-details');
+    if (marketDetails) marketDetails.addEventListener('toggle', () => track('Cloud Market Table', {state:marketDetails.open?'Opened':'Closed'}));
+  }
+
+  function initMarketChart() {
+    const host = document.querySelector('[data-market-chart]');
+    const svg = document.querySelector('[data-chart-svg]');
+    if (!host || !svg) return;
+
+    const tooltip = document.querySelector('[data-chart-tooltip]');
+    const categoryToggles = [...document.querySelectorAll('[data-series-toggle]')];
+    const gradeToggles = [...document.querySelectorAll('[data-grade-toggle]')];
+    const range = document.querySelector('[data-market-range]');
+    const allButton = document.querySelector('[data-chart-all]');
+    const colours = {'True Wave 1':'#e6b85c','Mislabelled Wave 2':'#52b7ff'};
+    const dash = {'PSA 10':'','PSA 9':'10 7','Beckett':'2 8','Other':'6 5'};
+
+    gradeToggles.forEach(toggle => {
+      const count = (data.marketRecords || []).filter(r => r.gradeGroup === toggle.value && r.plotted && Number.isFinite(r.price)).length;
+      const counter = document.querySelector(`[data-grade-count="${CSS.escape(toggle.value)}"]`);
+      if (counter) counter.textContent = `· ${count}`;
+      if (!count) {
+        toggle.disabled = true;
+        toggle.checked = false;
+        toggle.closest('.grade-toggle')?.classList.add('disabled');
+      }
+    });
+
+    const render = () => {
+      const enabledCategories = new Set(categoryToggles.filter(t => t.checked).map(t => t.value));
+      const enabledGrades = new Set(gradeToggles.filter(t => t.checked).map(t => t.value));
+      const startYear = range && range.value !== 'all' ? Number(range.value) : null;
+      const records = (data.marketRecords || []).filter(r =>
+        r.plotted && Number.isFinite(r.price) &&
+        enabledCategories.has(r.category) &&
+        enabledGrades.has(r.gradeGroup) &&
+        (!startYear || Number(r.date.slice(0,4)) >= startYear)
+      );
+
+      if (!records.length) {
+        svg.innerHTML = '<text x="500" y="270" text-anchor="middle" fill="#9ca9bc" font-size="24">No records match the selected filters.</text>';
+        return;
+      }
+
+      const width=1000,height=540,m={top:32,right:32,bottom:62,left:78};
+      const dates=records.map(r=>new Date(r.date+'T00:00:00Z').getTime());
+      const minX=Math.min(...dates),maxX=Math.max(...dates);
+      const maxPrice=Math.max(...records.map(r=>r.price));
+      const yMax=Math.max(500,Math.ceil((maxPrice*1.08)/500)*500);
+      const x=t=>m.left+((t-minX)/(maxX-minX||1))*(width-m.left-m.right);
+      const y=v=>height-m.bottom-(v/yMax)*(height-m.top-m.bottom);
+      let out='';
+
+      for(let v=0;v<=yMax;v+=500){const yy=y(v);out+=`<line x1="${m.left}" y1="${yy}" x2="${width-m.right}" y2="${yy}" class="chart-grid"/><text x="${m.left-14}" y="${yy+5}" text-anchor="end" class="chart-axis-label">$${v.toLocaleString('en-US')}</text>`;}
+      const y0=new Date(minX).getUTCFullYear(),y1=new Date(maxX).getUTCFullYear();
+      for(let yr=y0;yr<=y1;yr++){const xx=x(Date.UTC(yr,0,1));if(xx>=m.left-2&&xx<=width-m.right+2)out+=`<line x1="${xx}" y1="${m.top}" x2="${xx}" y2="${height-m.bottom}" class="chart-grid chart-grid-vertical"/><text x="${xx}" y="${height-25}" text-anchor="middle" class="chart-axis-label">${yr}</text>`;}
+      out+=`<text x="20" y="${height/2}" transform="rotate(-90 20 ${height/2})" text-anchor="middle" class="chart-axis-title">Recorded price (USD)</text>`;
+
+      for (const category of ['True Wave 1','Mislabelled Wave 2']) {
+        for (const gradeGroup of ['PSA 10','PSA 9','Beckett','Other']) {
+          const series=records.filter(r=>r.category===category&&r.gradeGroup===gradeGroup).sort((a,b)=>a.date.localeCompare(b.date));
+          if (!series.length) continue;
+          if (series.length > 1) {
+            const path=series.map((r,i)=>`${i?'L':'M'} ${x(new Date(r.date+'T00:00:00Z').getTime()).toFixed(2)} ${y(r.price).toFixed(2)}`).join(' ');
+            out+=`<path d="${path}" fill="none" stroke="${colours[category]}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" opacity=".88"${dash[gradeGroup]?` stroke-dasharray="${dash[gradeGroup]}"`:''}/>`;
+          }
+          series.forEach(r=>{
+            const xx=x(new Date(r.date+'T00:00:00Z').getTime()),yy=y(r.price),idx=(data.marketRecords||[]).indexOf(r);
+            out+=`<circle cx="${xx}" cy="${yy}" r="6" fill="${colours[category]}" stroke="#07090d" stroke-width="3"/><circle class="chart-hit" data-market-point="${idx}" cx="${xx}" cy="${yy}" r="16" fill="transparent" tabindex="0" role="button" aria-label="${esc(r.category+', '+r.displayDate+', '+r.displayPrice+', '+r.id)}"/>`;
+          });
+        }
+      }
+
+      svg.innerHTML=out;
+      svg.querySelectorAll('[data-market-point]').forEach(point=>{
+        const record=(data.marketRecords||[])[Number(point.dataset.marketPoint)];
+        const show=ev=>showTooltip(ev,point,record);
+        point.addEventListener('pointerenter',show);
+        point.addEventListener('pointermove',show);
+        point.addEventListener('pointerleave',hideTooltip);
+        point.addEventListener('focus',show);
+        point.addEventListener('blur',hideTooltip);
+        point.addEventListener('click',ev=>{
+          show(ev);
+          if(window.FFTCG_TRACK)window.FFTCG_TRACK('Cloud Chart Point',{record:record.id,classification:record.category,date:record.displayDate,price:record.displayPrice,grade:record.grade,platform:record.platform});
+        });
+      });
+    };
+
+    function showTooltip(ev,point,r){
+      if(!tooltip)return;
+      tooltip.innerHTML=`<strong>${esc(r.displayPrice)}</strong><span>${esc(r.displayDate)} · ${esc(r.id)}</span><span>${esc(r.category)}</span><span>${esc(r.grade)} · ${esc(r.platform)}</span><span>${esc(r.status)}</span>`;
+      tooltip.classList.remove('hidden');
+      const hostRect=host.getBoundingClientRect();
+      let left,top;
+      if(ev&&typeof ev.clientX==='number'&&ev.clientX){left=ev.clientX-hostRect.left+12;top=ev.clientY-hostRect.top+12;}
+      else{const p=point.getBoundingClientRect();left=p.left-hostRect.left+18;top=p.top-hostRect.top-10;}
+      tooltip.style.left=Math.min(Math.max(8,left),Math.max(8,hostRect.width-230))+'px';
+      tooltip.style.top=Math.max(8,top)+'px';
     }
-  ],
-  "archiveRecords": [
-    {
-      "id": "MA-001–009",
-      "subject": "Foundation Evidence Archive Complete",
-      "role": "Foundation records",
-      "status": "Published",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1ut3yz5/ma001ma009_foundation_evidence_archive_complete/"
-    },
-    {
-      "id": "MA-025",
-      "subject": "Cloud 1-182L Population Archive Foundation",
-      "role": "Cloud population hub",
-      "status": "Current",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1urnbrp/ma025_cloud_1182l_population_archive_foundation/"
-    },
-    {
-      "id": "MA-031",
-      "subject": "Cloud 1-182L — Beckett 10 Pristine",
-      "role": "Documented finding from SUB-001",
-      "status": "Published",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uxachc/ma31_cloud_1182l_beckett_10_pristine/"
-    },
-    {
-      "id": "MA-033",
-      "subject": "Cloud 1-182L Wave 1 / Wave 2 comparison research",
-      "role": "Variant identification",
-      "status": "Current",
-      "url": "https://www.reddit.com/r/FFTCGFinance/s/ryc7DCm4EF"
-    },
-    {
-      "id": "MA-036",
-      "subject": "Top 20 Opus I Wave 1-Foil PSA 10 Population Snapshot",
-      "role": "Population snapshot",
-      "status": "Current snapshot",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v0287h/ma036_top_20_opus_iwave_1foil_psa_10_population/"
-    },
-    {
-      "id": "MA-037",
-      "subject": "General Opus I Foil Population Archive",
-      "role": "Non-Cloud adjusted populations",
-      "status": "Current",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v14grn/ma037_general_opus_i_foil_population_archive/"
-    }
-  ],
-  "submissions": [
-    {
-      "id": "SUB-001",
-      "subject": "Cloud 1-182L — Beckett 10 Pristine",
-      "status": "Reviewed",
-      "result": "Assigned MA-031",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uwc187/cloud_1182l_beckett_10_pristine/"
-    },
-    {
-      "id": "SUB-002",
-      "subject": "Tifa 1-016C — Beckett 10 Pristine",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uwm62l/sub002_tifa_1016c_beckett_10_pristine/"
-    },
-    {
-      "id": "SUB-003",
-      "subject": "Cloud 1-182L BGS 9.5 Premium Foil — Potential Wave 2",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v0xjtd/sub003_cloud_1182l_bgs_95_premium_foil_potential/"
-    },
-    {
-      "id": "SUB-004",
-      "subject": "Cloud 1-182L BGS 10 Pristine Premium Foil — Potential Wave 2",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v0zdhh/sub004_cloud_1182l_bgs_10_pristine_premium_foil/"
-    },
-    {
-      "id": "SUB-005",
-      "subject": "Jecht 1-015L PSA 10 Wave 1-Foil — Potential Wave 2",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1134r/sub005_jecht_1015l_psa_10_wave_1foil_potential/"
-    },
-    {
-      "id": "SUB-006",
-      "subject": "Cloud 1-182L PSA 10 Wave 1 — Potential Wave 2",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v13wuu/sub006_cloud_1182l_psa_10_wave_1_potential_wave_2/"
-    },
-    {
-      "id": "SUB-007",
-      "subject": "Cloud 1-182L BGS 9.5 Premium Foil — Potential Wave 2",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1h7u2/sub007_cloud_1182l_bgs_95_premium_foil_potential/"
-    },
-    {
-      "id": "SUB-008",
-      "subject": "Cloud 1-182L Beckett 9.5 Premium Foil",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1jczb/sub008_cloud_1182l_beckett_95_premium_foil/"
-    },
-    {
-      "id": "SUB-009",
-      "subject": "Cloud 1-182L Beckett 9.5",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1kz9r/sub009_cloud_1182l_beckett_95/"
-    },
-    {
-      "id": "SUB-010",
-      "subject": "Squall 1-041L PSA 10",
-      "status": "Pending review",
-      "result": "—",
-      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1ojq6/sub010_squall_1041l_psa_10/"
-    }
-  ],
-  "marketSource": {
-    "record": "TE-001",
-    "revision": 13,
-    "reviewed": "17 July 2026",
-    "url": "https://www.reddit.com/r/FFTCGFinance/comments/1ux41eh/te001_cloud_1182l_wave_1_foil/"
-  },
-  "marketRecords": [
-    {
-      "id": "TE-034",
-      "date": "2019-12-19",
-      "displayDate": "19 Dec 2019",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 107.5,
-      "displayPrice": "$107.50",
-      "platform": "eBay",
-      "status": "Auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-030",
-      "date": "2020-05-07",
-      "displayDate": "7 May 2020",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 800.0,
-      "displayPrice": "$800.00",
-      "platform": "eBay",
-      "status": "Fixed Price",
-      "plotted": true
-    },
-    {
-      "id": "TE-029",
-      "date": "2020-05-30",
-      "displayDate": "30 May 2020",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 650.0,
-      "displayPrice": "$650.00",
-      "platform": "eBay",
-      "status": "Fixed Price",
-      "plotted": true
-    },
-    {
-      "id": "TE-013",
-      "date": "2020-06-25",
-      "displayDate": "25 Jun 2020",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 655.0,
-      "displayPrice": "$655.00",
-      "platform": "PWCC",
-      "status": "Archived auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-020",
-      "date": "2020-10-27",
-      "displayDate": "27 Oct 2020",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 380.0,
-      "displayPrice": "$380.00",
-      "platform": "Fanatics Collect",
-      "status": "Auction — 26 bids",
-      "plotted": true
-    },
-    {
-      "id": "TE-012",
-      "date": "2020-12-03",
-      "displayDate": "3 Dec 2020",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1500.0,
-      "displayPrice": "$1,500.00",
-      "platform": "WorthPoint",
-      "status": "Archived sale",
-      "plotted": true
-    },
-    {
-      "id": "TE-011",
-      "date": "2021-02-11",
-      "displayDate": "11 Feb 2021",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 3500.0,
-      "displayPrice": "$3,500.00",
-      "platform": "WorthPoint",
-      "status": "Archived sale",
-      "plotted": true
-    },
-    {
-      "id": "TE-019",
-      "date": "2021-07-26",
-      "displayDate": "26 Jul 2021",
-      "category": "Mislabelled Wave 2",
-      "grade": "BGS 10 Pristine",
-      "price": 710.0,
-      "displayPrice": "$710.00",
-      "platform": "Fanatics Collect",
-      "status": "Auction — 22 bids",
-      "plotted": true
-    },
-    {
-      "id": "TE-033",
-      "date": "2021-10-14",
-      "displayDate": "14 Oct 2021",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 810.0,
-      "displayPrice": "$810.00",
-      "platform": "eBay",
-      "status": "Auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-018",
-      "date": "2022-10-02",
-      "displayDate": "2 Oct 2022",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 750.0,
-      "displayPrice": "$750.00",
-      "platform": "Fanatics Collect",
-      "status": "Auction — 25 bids",
-      "plotted": true
-    },
-    {
-      "id": "TE-017",
-      "date": "2022-10-16",
-      "displayDate": "16 Oct 2022",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 1050.0,
-      "displayPrice": "$1,050.00",
-      "platform": "Fanatics Collect",
-      "status": "Auction — 35 bids",
-      "plotted": true
-    },
-    {
-      "id": "TE-032",
-      "date": "2023-03-31",
-      "displayDate": "31 Mar 2023",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 305.0,
-      "displayPrice": "$305.00",
-      "platform": "eBay",
-      "status": "Auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-031",
-      "date": "2023-04-22",
-      "displayDate": "22 Apr 2023",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 255.0,
-      "displayPrice": "$255.00",
-      "platform": "eBay",
-      "status": "Auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-028",
-      "date": "2023-06-30",
-      "displayDate": "30 Jun 2023",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1375.0,
-      "displayPrice": "$1,375.00",
-      "platform": "eBay",
-      "status": "Auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-010",
-      "date": "2024-08-02",
-      "displayDate": "2 Aug 2024",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1249.99,
-      "displayPrice": "$1,249.99",
-      "platform": "eBay",
-      "status": "Ended listing",
-      "plotted": true
-    },
-    {
-      "id": "TE-009",
-      "date": "2024-10-07",
-      "displayDate": "7 Oct 2024",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": null,
-      "displayPrice": "~£489.39",
-      "platform": "eBay",
-      "status": "Observed transaction",
-      "plotted": false
-    },
-    {
-      "id": "TE-027",
-      "date": "2025-03-07",
-      "displayDate": "7 Mar 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 904.09,
-      "displayPrice": "$904.09",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-026",
-      "date": "2025-03-17",
-      "displayDate": "17 Mar 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1299.35,
-      "displayPrice": "$1,299.35",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-015",
-      "date": "2025-05-23",
-      "displayDate": "23 May 2025",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 875.0,
-      "displayPrice": "$875.00",
-      "platform": "eBay",
-      "status": "Ended listing",
-      "plotted": true
-    },
-    {
-      "id": "TE-025",
-      "date": "2025-06-28",
-      "displayDate": "28 Jun 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 914.27,
-      "displayPrice": "$914.27",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-016",
-      "date": "2025-07-02",
-      "displayDate": "2 Jul 2025",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 1199.99,
-      "displayPrice": "$1,199.99",
-      "platform": "eBay",
-      "status": "Ended listing",
-      "plotted": true
-    },
-    {
-      "id": "TE-021",
-      "date": "2025-07-16",
-      "displayDate": "16 Jul 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1275.0,
-      "displayPrice": "$1,275.00",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-008",
-      "date": "2025-10-12",
-      "displayDate": "12 Oct 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 751.74,
-      "displayPrice": "$751.74",
-      "platform": "eBay",
-      "status": "Auction",
-      "plotted": true
-    },
-    {
-      "id": "TE-007",
-      "date": "2025-12-10",
-      "displayDate": "10 Dec 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1200.0,
-      "displayPrice": "$1,200.00",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-006",
-      "date": "2026-01-04",
-      "displayDate": "4 Jan 2026",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1343.79,
-      "displayPrice": "~$1,343.79",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-005",
-      "date": "2026-04-03",
-      "displayDate": "3 Apr 2026",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1100.0,
-      "displayPrice": "$1,100.00",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-014",
-      "date": "2026-04-03",
-      "displayDate": "3 Apr 2026",
-      "category": "Mislabelled Wave 2",
-      "grade": "PSA 10",
-      "price": 1000.0,
-      "displayPrice": "$1,000.00",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-004",
-      "date": "2026-05-28",
-      "displayDate": "28 May 2026",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 1300.0,
-      "displayPrice": "$1,300.00",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true
-    },
-    {
-      "id": "TE-002",
-      "date": "2026-06-29",
-      "displayDate": "29 Jun 2026",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 2000.0,
-      "displayPrice": "$2,000.00",
-      "platform": "eBay",
-      "status": "Sold",
-      "plotted": true
-    }
-  ]
-};
+    function hideTooltip(){if(tooltip)tooltip.classList.add('hidden');}
+
+    [...categoryToggles,...gradeToggles].forEach(t=>t.addEventListener('change',()=>{
+      hideTooltip();
+      if(window.FFTCG_TRACK)window.FFTCG_TRACK('Cloud Chart Filter',{filter:t.value,state:t.checked?'Shown':'Hidden'});
+      render();
+    }));
+    if(range)range.addEventListener('change',()=>{
+      hideTooltip();
+      if(window.FFTCG_TRACK)window.FFTCG_TRACK('Cloud Chart Range',{range:range.options[range.selectedIndex].text});
+      render();
+    });
+    if(allButton)allButton.addEventListener('click',()=>{
+      categoryToggles.forEach(t=>t.checked=true);
+      gradeToggles.forEach(t=>{if(!t.disabled)t.checked=true;});
+      if(range)range.value='all';
+      hideTooltip();
+      if(window.FFTCG_TRACK)window.FFTCG_TRACK('Cloud Chart Filter',{filter:'All tracked',state:'Selected'});
+      render();
+    });
+    render();
+  }
+})();

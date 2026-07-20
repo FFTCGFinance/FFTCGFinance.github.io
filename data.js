@@ -1,203 +1,730 @@
-/* FFTCGFinance — static site v1 */
-:root {
-  --bg: #07090d;
-  --panel: #10151e;
-  --panel-2: #151c28;
-  --line: #253044;
-  --text: #f4f7fb;
-  --muted: #9ca9bc;
-  --blue: #1685ff;
-  --blue-2: #52b7ff;
-  --gold: #e6b85c;
-  --green: #57d49b;
-  --amber: #ffca68;
-  --red: #ff7777;
-  --radius: 18px;
-  --shadow: 0 18px 48px rgba(0,0,0,.28);
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background:
-    radial-gradient(circle at 88% -5%, rgba(22,133,255,.16), transparent 36rem),
-    radial-gradient(circle at 10% 22%, rgba(230,184,92,.07), transparent 28rem),
-    var(--bg);
-  color: var(--text);
-  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.58;
-}
-a { color: var(--blue-2); text-decoration: none; }
-a:hover { text-decoration: underline; }
-img { max-width: 100%; }
-button, input { font: inherit; }
-.wrap { width: min(1160px, calc(100% - 34px)); margin: 0 auto; }
-.skip-link { position: fixed; left: 12px; top: -80px; z-index: 999; background:#fff; color:#000; padding:10px 14px; border-radius:10px; }
-.skip-link:focus { top: 12px; }
-.site-header {
-  position: sticky; top: 0; z-index: 20;
-  background: rgba(7,9,13,.86);
-  border-bottom: 1px solid rgba(80,103,140,.34);
-  backdrop-filter: blur(16px);
-}
-.header-inner { min-height: 72px; display:flex; align-items:center; justify-content:space-between; gap:22px; }
-.brand { display:flex; align-items:center; gap:12px; color:var(--text); font-weight:800; letter-spacing:-.02em; }
-.brand:hover { text-decoration:none; }
-.brand img { width:43px; height:43px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 1px rgba(255,255,255,.16); }
-.brand span { font-size:1.13rem; }
-.nav { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-.nav a { color:#cbd5e4; padding:9px 11px; border-radius:10px; font-size:.91rem; }
-.nav a:hover, .nav a[aria-current="page"] { color:#fff; background:rgba(74,113,169,.18); text-decoration:none; }
-.hero { padding:92px 0 64px; }
-.hero-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:54px; align-items:center; }
-.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.15em; font-size:.76rem; font-weight:800; }
-h1,h2,h3 { line-height:1.12; letter-spacing:-.035em; margin:0 0 18px; }
-h1 { font-size:clamp(2.7rem, 6vw, 5.8rem); max-width:860px; }
-h2 { font-size:clamp(1.9rem, 3.8vw, 3.25rem); }
-h3 { font-size:1.24rem; }
-.lede { color:#c1ccdb; font-size:clamp(1.06rem, 2vw, 1.3rem); max-width:760px; }
-.hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
-.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:0 17px; border-radius:12px; border:1px solid var(--line); color:#fff; background:#121925; font-weight:750; }
-.btn:hover { text-decoration:none; border-color:#4f6483; transform:translateY(-1px); }
-.btn-primary { background:linear-gradient(135deg,#0d70eb,#25a4ff); border-color:transparent; box-shadow:0 10px 28px rgba(22,133,255,.22); }
-.hero-mark { width:min(100%,460px); aspect-ratio:1; justify-self:end; border-radius:50%; object-fit:cover; filter:drop-shadow(0 26px 65px rgba(0,89,255,.28)); }
-.status-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(15,20,29,.72); }
-.status-grid { display:grid; grid-template-columns:repeat(4,1fr); }
-.status-item { padding:24px; border-right:1px solid var(--line); }
-.status-item:last-child { border-right:0; }
-.status-item strong { display:block; font-size:1.08rem; }
-.status-item span { color:var(--muted); font-size:.88rem; }
-.section { padding:76px 0; }
-.section-muted { background:linear-gradient(180deg,rgba(17,23,33,.55),rgba(7,9,13,0)); }
-.section-head { display:flex; align-items:end; justify-content:space-between; gap:26px; margin-bottom:28px; }
-.section-head p { margin:0; color:var(--muted); max-width:650px; }
-.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
-.grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
-.card { background:linear-gradient(180deg,rgba(23,31,45,.88),rgba(15,20,29,.92)); border:1px solid var(--line); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); }
-.card p:last-child { margin-bottom:0; }
-.card-number { font-size:2.4rem; font-weight:850; letter-spacing:-.05em; }
-.card-label { color:var(--muted); font-size:.88rem; }
-.card-link { display:inline-flex; margin-top:15px; font-weight:750; }
-.record-list { display:grid; gap:14px; }
-.record { display:grid; grid-template-columns:1.2fr repeat(3,.6fr) .85fr; gap:14px; align-items:center; padding:18px 20px; background:rgba(17,23,34,.85); border:1px solid var(--line); border-radius:15px; }
-.record-head { color:var(--muted); background:transparent; border-style:dashed; padding-top:10px; padding-bottom:10px; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; }
-.record-name strong { display:block; }
-.record-name span { color:var(--muted); font-size:.83rem; }
-.metric strong { display:block; font-size:1.13rem; }
-.metric span { color:var(--muted); font-size:.76rem; }
-.badge { display:inline-flex; align-items:center; width:max-content; padding:5px 9px; border:1px solid rgba(87,212,155,.33); background:rgba(87,212,155,.09); color:#8cedbe; border-radius:999px; font-size:.74rem; font-weight:780; text-transform:uppercase; letter-spacing:.05em; }
-.badge.pending { color:#ffd17d; border-color:rgba(255,202,104,.35); background:rgba(255,202,104,.08); }
-.notice { border-left:3px solid var(--gold); background:rgba(230,184,92,.07); padding:16px 18px; border-radius:0 12px 12px 0; color:#d8deea; }
-.page-hero { padding:70px 0 34px; }
-.page-hero h1 { font-size:clamp(2.4rem,5vw,4.7rem); }
-.page-hero p { color:#b7c3d4; font-size:1.12rem; max-width:790px; }
-.toolbar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:26px 0; }
-.search { flex:1 1 320px; min-height:48px; border:1px solid var(--line); border-radius:13px; padding:0 15px; color:#fff; background:#0f151f; outline:none; }
-.search:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(22,133,255,.14); }
-.table-wrap { overflow:auto; border:1px solid var(--line); border-radius:16px; background:rgba(14,19,28,.82); }
-table { width:100%; border-collapse:collapse; min-width:760px; }
-th,td { text-align:left; padding:15px 17px; border-bottom:1px solid var(--line); vertical-align:top; }
-th { font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; color:#aeb9c9; background:#111824; }
-tbody tr:last-child td { border-bottom:0; }
-tbody tr:hover { background:rgba(37,53,76,.25); }
-.num { font-variant-numeric:tabular-nums; font-weight:800; }
-.detail-grid { display:grid; grid-template-columns:1fr .75fr; gap:22px; align-items:start; }
-.meta-list { display:grid; gap:0; margin:0; }
-.meta-row { display:grid; grid-template-columns:170px 1fr; gap:18px; padding:13px 0; border-bottom:1px solid var(--line); }
-.meta-row dt { color:var(--muted); }
-.meta-row dd { margin:0; font-weight:650; }
-.evidence-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.evidence-card { overflow:hidden; padding:0; }
-.evidence-card img { width:100%; aspect-ratio:4/5; object-fit:contain; background:#000; border-bottom:1px solid var(--line); }
-.evidence-body { padding:20px; }
-.evidence-body p { color:#b8c4d4; }
-.timeline { display:grid; gap:16px; }
-.timeline-item { display:grid; grid-template-columns:110px 1fr; gap:20px; padding:22px; border:1px solid var(--line); border-radius:15px; background:rgba(16,22,32,.82); }
-.timeline-item .date { color:var(--gold); font-weight:800; }
-.prose { max-width:820px; }
-.prose h2 { margin-top:54px; }
-.prose h3 { margin-top:34px; }
-.prose p, .prose li { color:#c2ccda; }
-.prose li { margin:.4em 0; }
-.code-block { overflow:auto; background:#0b0f16; border:1px solid var(--line); border-radius:13px; padding:17px; color:#d8e2ef; }
-.site-footer { margin-top:70px; border-top:1px solid var(--line); padding:38px 0 50px; color:var(--muted); }
-.footer-grid { display:grid; grid-template-columns:1fr auto; gap:26px; align-items:start; }
-.footer-links { display:flex; flex-wrap:wrap; gap:14px; justify-content:flex-end; }
-.small { font-size:.86rem; color:var(--muted); }
-.hidden { display:none !important; }
-.empty { padding:32px; text-align:center; color:var(--muted); }
-@media (max-width:900px) {
-  .hero-grid, .detail-grid { grid-template-columns:1fr; }
-  .grid-4 { grid-template-columns:1fr 1fr; }
-  .chart-head { align-items:flex-start; flex-direction:column; }
-  .chart-controls { justify-content:flex-start; }
-  .hero-mark { width:min(72vw,390px); justify-self:center; order:-1; }
-  .status-grid { grid-template-columns:repeat(2,1fr); }
-  .status-item:nth-child(2) { border-right:0; }
-  .status-item:nth-child(-n+2) { border-bottom:1px solid var(--line); }
-  .grid-3, .evidence-grid { grid-template-columns:1fr 1fr; }
-  .record { grid-template-columns:1.2fr repeat(3,.55fr); }
-  .record > :last-child { grid-column:1/-1; }
-}
-@media (max-width:650px) {
-  .wrap { width:min(100% - 24px,1160px); }
-  .header-inner { align-items:flex-start; padding:10px 0; flex-direction:column; gap:7px; }
-  .nav { display:flex; width:100%; overflow-x:auto; flex-wrap:nowrap; justify-content:flex-start; padding-bottom:3px; scrollbar-width:none; }
-  .nav::-webkit-scrollbar { display:none; }
-  .nav a { white-space:nowrap; padding:7px 9px; }
-  .hero { padding-top:46px; }
-  h1 { font-size:2.75rem; }
-  .hero-mark { width:min(86vw,350px); }
-  .status-grid, .grid-3, .grid-4, .grid-2, .evidence-grid { grid-template-columns:1fr; }
-  .status-item { border-right:0; border-bottom:1px solid var(--line); }
-  .status-item:last-child { border-bottom:0; }
-  .record, .record-head { grid-template-columns:1fr 1fr; }
-  .record-name { grid-column:1/-1; }
-  .record-head { display:none; }
-  .meta-row { grid-template-columns:1fr; gap:2px; }
-  .timeline-item { grid-template-columns:1fr; gap:8px; }
-  .footer-grid { grid-template-columns:1fr; }
-  .footer-links { justify-content:flex-start; }
-}
-
-
-/* Archive indexes and Treno Exchange */
-.compact-table { min-width: 820px; }
-.record-link { color: var(--text); }
-.record-link:hover { color: var(--blue-2); }
-.chart-card { background:linear-gradient(180deg,rgba(23,31,45,.9),rgba(12,17,25,.96)); border:1px solid var(--line); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); }
-.chart-head { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:18px; }
-.chart-head p { color:var(--muted); margin:0; max-width:660px; }
-.chart-controls { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center; }
-.series-toggle, .range-control { display:inline-flex; align-items:center; gap:8px; min-height:42px; padding:0 12px; border:1px solid var(--line); border-radius:11px; background:#0f151f; color:#dce5f1; font-size:.86rem; font-weight:700; }
-.series-toggle input { accent-color:var(--blue); }
-.series-toggle span { width:10px; height:10px; border-radius:50%; display:inline-block; }
-.series-toggle.true-wave span { background:var(--gold); }
-.series-toggle.wave-two span { background:var(--blue-2); }
-.range-control select { color:#fff; background:#0f151f; border:0; outline:none; }
-.chart-frame { position:relative; width:100%; overflow:hidden; border:1px solid var(--line); border-radius:15px; background:radial-gradient(circle at 50% 0,rgba(22,133,255,.08),transparent 45%),#0a0f17; }
-.market-chart { display:block; width:100%; height:auto; min-height:340px; touch-action:manipulation; }
-.chart-grid { stroke:#263348; stroke-width:1; }
-.chart-grid-vertical { stroke-dasharray:4 7; opacity:.55; }
-.chart-axis-label { fill:#8f9db1; font-size:15px; font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-.chart-axis-title { fill:#aeb9c9; font-size:15px; font-weight:700; font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-.chart-hit { cursor:pointer; }
-.chart-hit:focus { outline:none; stroke:#fff; stroke-width:2; }
-.chart-tooltip { position:absolute; z-index:5; width:218px; display:grid; gap:2px; padding:12px 13px; border:1px solid #435675; border-radius:12px; background:rgba(7,9,13,.96); box-shadow:0 14px 30px rgba(0,0,0,.35); pointer-events:none; }
-.chart-tooltip strong { font-size:1.12rem; color:#fff; }
-.chart-tooltip span { font-size:.77rem; color:#b8c4d4; }
-.chart-note { margin-top:16px; color:#acb8c8; font-size:.88rem; }
-.market-links { margin-top:20px; }
-.data-details { margin-top:20px; border:1px solid var(--line); border-radius:15px; background:rgba(14,19,28,.82); overflow:hidden; }
-.data-details summary { cursor:pointer; padding:17px 20px; font-weight:800; color:#fff; }
-.data-details[open] summary { border-bottom:1px solid var(--line); }
-.data-details .table-wrap { border:0; border-radius:0; }
-.market-status .status-item strong { font-size:1.35rem; }
-
-@media (max-width:650px) { .chart-card { padding:14px; } .series-toggle, .range-control { width:100%; justify-content:flex-start; } .market-chart { min-width:700px; } .chart-frame { overflow-x:auto; } }
-@media (max-width:900px) {
-  .chart-head { align-items:flex-start; flex-direction:column; }
-  .chart-controls { justify-content:flex-start; }
-}
+window.FFTCG_DATA = {
+  "reviewed": "20 July 2026",
+  "revision": 4,
+  "populations": [
+    {
+      "card": "Cloud 1-182L",
+      "scope": "English Wave 1-labelled rows · PSA 10",
+      "official": 91,
+      "exclusions": 5,
+      "adjusted": 86,
+      "record": "MA-025",
+      "status": "Current"
+    },
+    {
+      "card": "Lightning 1-141L",
+      "scope": "English Wave 1-Foil · PSA 10",
+      "official": 35,
+      "exclusions": 1,
+      "adjusted": 34,
+      "record": "MA-037",
+      "status": "Current"
+    },
+    {
+      "card": "Jecht 1-015L",
+      "scope": "English Wave 1-Foil · PSA 10",
+      "official": 27,
+      "exclusions": 1,
+      "adjusted": 26,
+      "record": "MA-037",
+      "status": "Current"
+    },
+    {
+      "card": "Aerith 1-064R",
+      "scope": "English Wave 1-Foil · PSA 10",
+      "official": 25,
+      "exclusions": 2,
+      "adjusted": 23,
+      "record": "MA-037",
+      "status": "Current"
+    }
+  ],
+  "archiveRecords": [
+    {
+      "id": "MA-001–009",
+      "subject": "Foundation Evidence Archive Complete",
+      "role": "Foundation records",
+      "status": "Published",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1ut3yz5/ma001ma009_foundation_evidence_archive_complete/"
+    },
+    {
+      "id": "MA-025",
+      "subject": "Cloud 1-182L Population Archive Foundation",
+      "role": "Cloud population hub",
+      "status": "Current",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1urnbrp/ma025_cloud_1182l_population_archive_foundation/"
+    },
+    {
+      "id": "MA-031",
+      "subject": "Cloud 1-182L — Beckett 10 Pristine",
+      "role": "Documented finding from SUB-001",
+      "status": "Published",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uxachc/ma31_cloud_1182l_beckett_10_pristine/"
+    },
+    {
+      "id": "MA-033",
+      "subject": "Cloud 1-182L Wave 1 / Wave 2 comparison research",
+      "role": "Variant identification",
+      "status": "Current",
+      "url": "https://www.reddit.com/r/FFTCGFinance/s/ryc7DCm4EF"
+    },
+    {
+      "id": "MA-036",
+      "subject": "Top 20 Opus I Wave 1-Foil PSA 10 Population Snapshot",
+      "role": "Population snapshot",
+      "status": "Current snapshot",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v0287h/ma036_top_20_opus_iwave_1foil_psa_10_population/"
+    },
+    {
+      "id": "MA-037",
+      "subject": "General Opus I Foil Population Archive",
+      "role": "Non-Cloud adjusted populations",
+      "status": "Current",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v14grn/ma037_general_opus_i_foil_population_archive/"
+    }
+  ],
+  "submissions": [
+    {
+      "id": "SUB-001",
+      "subject": "Cloud 1-182L — Beckett 10 Pristine",
+      "status": "Reviewed",
+      "result": "Assigned MA-031",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uwc187/cloud_1182l_beckett_10_pristine/"
+    },
+    {
+      "id": "SUB-002",
+      "subject": "Tifa 1-016C — Beckett 10 Pristine",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uwm62l/sub002_tifa_1016c_beckett_10_pristine/"
+    },
+    {
+      "id": "SUB-003",
+      "subject": "Cloud 1-182L BGS 9.5 Premium Foil — Potential Wave 2",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v0xjtd/sub003_cloud_1182l_bgs_95_premium_foil_potential/"
+    },
+    {
+      "id": "SUB-004",
+      "subject": "Cloud 1-182L BGS 10 Pristine Premium Foil — Potential Wave 2",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v0zdhh/sub004_cloud_1182l_bgs_10_pristine_premium_foil/"
+    },
+    {
+      "id": "SUB-005",
+      "subject": "Jecht 1-015L PSA 10 Wave 1-Foil — Potential Wave 2",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1134r/sub005_jecht_1015l_psa_10_wave_1foil_potential/"
+    },
+    {
+      "id": "SUB-006",
+      "subject": "Cloud 1-182L PSA 10 Wave 1 — Potential Wave 2",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v13wuu/sub006_cloud_1182l_psa_10_wave_1_potential_wave_2/"
+    },
+    {
+      "id": "SUB-007",
+      "subject": "Cloud 1-182L BGS 9.5 Premium Foil — Potential Wave 2",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1h7u2/sub007_cloud_1182l_bgs_95_premium_foil_potential/"
+    },
+    {
+      "id": "SUB-008",
+      "subject": "Cloud 1-182L Beckett 9.5 Premium Foil",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1jczb/sub008_cloud_1182l_beckett_95_premium_foil/"
+    },
+    {
+      "id": "SUB-009",
+      "subject": "Cloud 1-182L Beckett 9.5",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1kz9r/sub009_cloud_1182l_beckett_95/"
+    },
+    {
+      "id": "SUB-010",
+      "subject": "Squall 1-041L PSA 10",
+      "status": "Pending review",
+      "result": "—",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1v1ojq6/sub010_squall_1041l_psa_10/"
+    }
+  ],
+  "marketSource": {
+    "record": "TE-001",
+    "revision": 13,
+    "reviewed": "17 July 2026",
+    "url": "https://www.reddit.com/r/FFTCGFinance/comments/1ux41eh/te001_cloud_1182l_wave_1_foil/"
+  },
+  "marketRecords": [
+    {
+      "id": "TE-034",
+      "date": "2019-12-19",
+      "displayDate": "19 Dec 2019",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 107.5,
+      "displayPrice": "$107.50",
+      "platform": "eBay",
+      "status": "Auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-030",
+      "date": "2020-05-07",
+      "displayDate": "7 May 2020",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 800.0,
+      "displayPrice": "$800.00",
+      "platform": "eBay",
+      "status": "Fixed Price",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-029",
+      "date": "2020-05-30",
+      "displayDate": "30 May 2020",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 650.0,
+      "displayPrice": "$650.00",
+      "platform": "eBay",
+      "status": "Fixed Price",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-013",
+      "date": "2020-06-25",
+      "displayDate": "25 Jun 2020",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 655.0,
+      "displayPrice": "$655.00",
+      "platform": "PWCC",
+      "status": "Archived auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-020",
+      "date": "2020-10-27",
+      "displayDate": "27 Oct 2020",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 380.0,
+      "displayPrice": "$380.00",
+      "platform": "Fanatics Collect",
+      "status": "Auction — 26 bids",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-012",
+      "date": "2020-12-03",
+      "displayDate": "3 Dec 2020",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1500.0,
+      "displayPrice": "$1,500.00",
+      "platform": "WorthPoint",
+      "status": "Archived sale",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-011",
+      "date": "2021-02-11",
+      "displayDate": "11 Feb 2021",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 3500.0,
+      "displayPrice": "$3,500.00",
+      "platform": "WorthPoint",
+      "status": "Archived sale",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-019",
+      "date": "2021-07-26",
+      "displayDate": "26 Jul 2021",
+      "category": "Mislabelled Wave 2",
+      "grade": "BGS 10 Pristine",
+      "price": 710.0,
+      "displayPrice": "$710.00",
+      "platform": "Fanatics Collect",
+      "status": "Auction — 22 bids",
+      "plotted": true,
+      "gradeGroup": "Beckett"
+    },
+    {
+      "id": "TE-033",
+      "date": "2021-10-14",
+      "displayDate": "14 Oct 2021",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 810.0,
+      "displayPrice": "$810.00",
+      "platform": "eBay",
+      "status": "Auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-018",
+      "date": "2022-10-02",
+      "displayDate": "2 Oct 2022",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 750.0,
+      "displayPrice": "$750.00",
+      "platform": "Fanatics Collect",
+      "status": "Auction — 25 bids",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-017",
+      "date": "2022-10-16",
+      "displayDate": "16 Oct 2022",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 1050.0,
+      "displayPrice": "$1,050.00",
+      "platform": "Fanatics Collect",
+      "status": "Auction — 35 bids",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-032",
+      "date": "2023-03-31",
+      "displayDate": "31 Mar 2023",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 305.0,
+      "displayPrice": "$305.00",
+      "platform": "eBay",
+      "status": "Auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-031",
+      "date": "2023-04-22",
+      "displayDate": "22 Apr 2023",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 255.0,
+      "displayPrice": "$255.00",
+      "platform": "eBay",
+      "status": "Auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-028",
+      "date": "2023-06-30",
+      "displayDate": "30 Jun 2023",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1375.0,
+      "displayPrice": "$1,375.00",
+      "platform": "eBay",
+      "status": "Auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-010",
+      "date": "2024-08-02",
+      "displayDate": "2 Aug 2024",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1249.99,
+      "displayPrice": "$1,249.99",
+      "platform": "eBay",
+      "status": "Ended listing",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-009",
+      "date": "2024-10-07",
+      "displayDate": "7 Oct 2024",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": null,
+      "displayPrice": "~£489.39",
+      "platform": "eBay",
+      "status": "Observed transaction",
+      "plotted": false,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-027",
+      "date": "2025-03-07",
+      "displayDate": "7 Mar 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 904.09,
+      "displayPrice": "$904.09",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-026",
+      "date": "2025-03-17",
+      "displayDate": "17 Mar 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1299.35,
+      "displayPrice": "$1,299.35",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-015",
+      "date": "2025-05-23",
+      "displayDate": "23 May 2025",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 875.0,
+      "displayPrice": "$875.00",
+      "platform": "eBay",
+      "status": "Ended listing",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-025",
+      "date": "2025-06-28",
+      "displayDate": "28 Jun 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 914.27,
+      "displayPrice": "$914.27",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-016",
+      "date": "2025-07-02",
+      "displayDate": "2 Jul 2025",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 1199.99,
+      "displayPrice": "$1,199.99",
+      "platform": "eBay",
+      "status": "Ended listing",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-021",
+      "date": "2025-07-16",
+      "displayDate": "16 Jul 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1275.0,
+      "displayPrice": "$1,275.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-008",
+      "date": "2025-10-12",
+      "displayDate": "12 Oct 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 751.74,
+      "displayPrice": "$751.74",
+      "platform": "eBay",
+      "status": "Auction",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-007",
+      "date": "2025-12-10",
+      "displayDate": "10 Dec 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1200.0,
+      "displayPrice": "$1,200.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-006",
+      "date": "2026-01-04",
+      "displayDate": "4 Jan 2026",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1343.79,
+      "displayPrice": "~$1,343.79",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-005",
+      "date": "2026-04-03",
+      "displayDate": "3 Apr 2026",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1100.0,
+      "displayPrice": "$1,100.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-014",
+      "date": "2026-04-03",
+      "displayDate": "3 Apr 2026",
+      "category": "Mislabelled Wave 2",
+      "grade": "PSA 10",
+      "price": 1000.0,
+      "displayPrice": "$1,000.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-004",
+      "date": "2026-05-28",
+      "displayDate": "28 May 2026",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1300.0,
+      "displayPrice": "$1,300.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-002",
+      "date": "2026-06-29",
+      "displayDate": "29 Jun 2026",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 2000.0,
+      "displayPrice": "$2,000.00",
+      "platform": "eBay",
+      "status": "Sold",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    }
+  ],
+  "websiteBuild": "v7",
+  "cloudPopulation": {
+    "card": "Cloud 1-182L",
+    "psaWave1FoilTotal": 130,
+    "psaWave1Total": 7,
+    "psaCombinedTracked": 137,
+    "beckettPremiumFoilTotal": 190,
+    "combinedFoilLabelTotal": 320,
+    "combinedTrackedTotal": 327,
+    "psa10Official": 91,
+    "psa10Exclusions": 5,
+    "psa10Adjusted": 86,
+    "psaWave1FoilBreakdown": [
+      {
+        "grade": "PSA 10",
+        "count": 87
+      },
+      {
+        "grade": "PSA 9",
+        "count": 34
+      },
+      {
+        "grade": "PSA 8",
+        "count": 5
+      },
+      {
+        "grade": "PSA 7",
+        "count": 4
+      }
+    ],
+    "beckettBreakdown": [
+      {
+        "grade": "BGS 10",
+        "count": 6
+      },
+      {
+        "grade": "BGS 9.5",
+        "count": 35
+      },
+      {
+        "grade": "BGS 9",
+        "count": 107
+      },
+      {
+        "grade": "BGS 8.5",
+        "count": 30
+      },
+      {
+        "grade": "BGS 8",
+        "count": 11
+      },
+      {
+        "grade": "BGS 7.5",
+        "count": 1
+      }
+    ],
+    "notes": [
+      "The legacy PSA “Foil” total of 130 is the same underlying population as the Wave 1-Foil row and is not counted again.",
+      "The separate PSA Wave 1 row contributes 7 additional grading entries.",
+      "The Beckett Premium Foil population combines both print configurations because Beckett does not separate Wave 1 and Wave 2 in that population total.",
+      "The combined figure represents tracked grading-company entries, not a count of unique physical cards."
+    ]
+  },
+  "siteStatus": [
+    {
+      "label": "Population records",
+      "value": "Active",
+      "state": "active"
+    },
+    {
+      "label": "Variant research",
+      "value": "Active",
+      "state": "active"
+    },
+    {
+      "label": "Market records",
+      "value": "Active",
+      "state": "active"
+    },
+    {
+      "label": "Last reviewed",
+      "value": "20 July 2026",
+      "state": "date"
+    }
+  ],
+  "trenoRecords": [
+    {
+      "id": "TE-000",
+      "subject": "Treno Exchange Archive Index",
+      "role": "Market-record index",
+      "status": "Current",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uxaz3e/te000_treno_exchange_archive_index/"
+    },
+    {
+      "id": "TE-001",
+      "subject": "Cloud 1-182L Wave 1 FOIL",
+      "role": "Canonical market-history table",
+      "status": "Current",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1ux41eh/te001_cloud_1182l_wave_1_foil/"
+    },
+    {
+      "id": "TE-024",
+      "subject": "True Wave 1 + Mislabelled Wave 2 Market History",
+      "role": "Comparison chart record",
+      "status": "Published",
+      "url": "https://www.reddit.com/r/FFTCGFinance/comments/1uy6bdg/te024_true_wave_1_mislabelled_wave_2_market/"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "20 Jul 2026",
+      "title": "Website revision 4 · build v7",
+      "items": [
+        "Corrected all asset paths for a flat GitHub Pages upload.",
+        "Added the Cloud PSA, Beckett and combined tracked population summary.",
+        "Merged the duplicated Cloud and Squall punctuation cards.",
+        "Added global archive search, a lightweight change log and clearer status treatment.",
+        "Added grade filters to the Cloud market chart and a future-ready PSA 9 control."
+      ]
+    },
+    {
+      "date": "20 Jul 2026",
+      "title": "Website revision 3 · build v6",
+      "items": [
+        "Enabled Plausible analytics.",
+        "Added Treno Exchange, the interactive Cloud chart, and compact MA and SUB indexes."
+      ]
+    },
+    {
+      "date": "20 Jul 2026",
+      "title": "Initial website structure",
+      "items": [
+        "Created the population, variant, evidence and methodology sections."
+      ]
+    }
+  ],
+  "searchPages": [
+    {
+      "type": "Page",
+      "title": "Home",
+      "description": "Current status and headline archive records.",
+      "url": "index.html",
+      "keywords": "home status archive"
+    },
+    {
+      "type": "Page",
+      "title": "Population records",
+      "description": "Official figures, exclusions and adjusted estimates.",
+      "url": "populations.html",
+      "keywords": "population psa beckett cloud lightning jecht aerith"
+    },
+    {
+      "type": "Page",
+      "title": "Variant guide",
+      "description": "Wave 1 and Wave 2 identification research.",
+      "url": "variants.html",
+      "keywords": "variant punctuation cloud squall wave 1 wave 2"
+    },
+    {
+      "type": "Page",
+      "title": "Market records",
+      "description": "Treno Exchange and the interactive Cloud chart.",
+      "url": "market.html",
+      "keywords": "treno te market sales cloud chart"
+    },
+    {
+      "type": "Page",
+      "title": "Archive index",
+      "description": "Searchable MA, SUB and TE links.",
+      "url": "evidence.html",
+      "keywords": "ma sub te evidence index"
+    },
+    {
+      "type": "Page",
+      "title": "Methodology",
+      "description": "How official and archive-adjusted figures are separated.",
+      "url": "methodology.html",
+      "keywords": "methodology exclusions adjusted official"
+    },
+    {
+      "type": "Page",
+      "title": "Change log",
+      "description": "Visible website revisions.",
+      "url": "changelog.html",
+      "keywords": "change log revision history"
+    }
+  ]
+};

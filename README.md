@@ -1,39 +1,26 @@
-# FFTCGFinance website — revision 3 / Plausible-enabled build
+# FFTCGFinance website — v7
 
-A deploy-ready static website for `fftcgfinance.com`.
+A deploy-ready static build for `fftcgfinance.com`.
 
-## Edit data
+## Important upload change
 
-Update `assets/data.js`. Population records, MA links, SUB links and Cloud market points are generated from this single file.
+All files are intentionally stored at the repository root. Upload the contents of this folder directly to `FFTCGFinance.github.io`. This avoids the folder-flattening asset-path issue from the first deployment.
 
-## Deploy on GitHub Pages
+## Routine updates
 
-1. Upload every file and folder in this directory to the root of `FFTCGFinance.github.io`.
-2. Open **Settings → Pages**.
-3. Under **Build and deployment**, select **Deploy from a branch**.
-4. Select `main` and `/ (root)`, then save.
-5. In the custom-domain box, enter `fftcgfinance.com`.
-6. Add the GitHub Pages DNS records in Cloudflare when GitHub displays them.
-7. Enable **Enforce HTTPS** after the certificate is ready.
+Most factual updates now happen in `data.js`:
 
-The included `CNAME`, `robots.txt`, `sitemap.xml`, manifest and canonical tags are configured for `fftcgfinance.com`.
+- population figures and review dates;
+- MA, SUB and TE index links;
+- Cloud market records;
+- change-log entries.
 
-## Site sections
+Upload only `data.js` when the structure and design have not changed.
 
-- Home
-- Population Records
-- Variant Guide
-- Treno Exchange Market Records
-- MA and SUB Archive Index
-- Methodology
+## Structural files
 
-## Data treatment
+- `styles.css` — design
+- `app.js` — search, tables, chart and analytics events
+- HTML files — page structure
 
-The interactive Cloud chart uses the current TE-001 table. The native-GBP observation dated 7 October 2024 remains listed but is not plotted because no exchange-rate conversion is applied.
-
-No external fonts, frameworks or chart libraries are required. Plausible analytics is enabled on every HTML page using the supplied site script.
-
-
-## Plausible events
-
-The site records privacy-friendly custom events for MA, SUB and TE record clicks; Reddit, YouTube, GitHub and contact clicks; Cloud chart series/range changes; chart-point taps; and opening the full market table.
+Plausible analytics remains enabled on every page.

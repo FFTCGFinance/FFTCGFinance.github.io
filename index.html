@@ -1,34 +1,39 @@
-<!doctype html>
-<html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FFTCGFinance | Final Fantasy TCG Population & Variant Research</title>
-  <meta name="description" content="Independent Final Fantasy TCG population, variant, grading-label and market research, with evidence-linked archive records.">
-  <link rel="canonical" href="https://fftcgfinance.com/">
-  <meta property="og:title" content="FFTCGFinance | Final Fantasy TCG Population & Variant Research">
-  <meta property="og:description" content="Independent Final Fantasy TCG population, variant, grading-label and market research, with evidence-linked archive records.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fftcgfinance.com/">
-  <meta property="og:image" content="https://fftcgfinance.com/assets/logo-square.jpg">
-  <meta name="theme-color" content="#07090d">
-  <link rel="icon" href="assets/favicon.png">
-  <link rel="apple-touch-icon" href="assets/icon-192.png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <!-- Privacy-friendly analytics by Plausible -->
-  <script async src="https://plausible.io/js/pa-Hlj13cnP0ZmUmXgtMXtPP.js"></script>
-  <script>
-    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-    plausible.init()
-  </script>
-  <link rel="stylesheet" href="assets/styles.css">
-</head>
+    <!doctype html>
+    <html lang="en-GB">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>FFTCGFinance | Final Fantasy TCG Population, Variant & Market Research</title>
+      <meta name="description" content="Independent Final Fantasy TCG population, variant, grading-label and market research, with evidence-linked archive records.">
+      <link rel="canonical" href="https://fftcgfinance.com/">
+      <meta property="og:title" content="FFTCGFinance | Final Fantasy TCG Population, Variant & Market Research">
+      <meta property="og:description" content="Independent Final Fantasy TCG population, variant, grading-label and market research, with evidence-linked archive records.">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://fftcgfinance.com/">
+      <meta property="og:image" content="https://fftcgfinance.com/logo-square.jpg">
+      <meta name="theme-color" content="#07090d">
+      <link rel="icon" href="favicon.png">
+      <link rel="apple-touch-icon" href="icon-192.png">
+      <link rel="manifest" href="manifest.webmanifest">
+      <!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-Hlj13cnP0ZmUmXgtMXtPP.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=window.plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+      <link rel="stylesheet" href="styles.css">
+    </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="index.html"><img src="assets/logo-square.jpg" alt=""><span>FFTCGFinance</span></a>
+    <a class="brand" href="index.html"><img src="logo-square.jpg" alt=""><span>FFTCGFinance</span></a>
     <nav class="nav" aria-label="Primary"><a href="index.html" aria-current="page">Home</a><a href="populations.html">Populations</a><a href="variants.html">Variant Guide</a><a href="market.html">Market Records</a><a href="evidence.html">Archive Index</a><a href="methodology.html">Methodology</a></nav>
+    <div class="global-search" data-global-search-wrap>
+      <label class="sr-only" for="global-search-index-html">Search the archive</label>
+      <input id="global-search-index-html" type="search" placeholder="Search records…" autocomplete="off" data-global-search>
+      <div class="global-results hidden" data-global-results role="listbox" aria-label="Search results"></div>
+    </div>
   </div>
 </header>
 <main id="main">
@@ -43,16 +48,11 @@
         <a class="btn" href="methodology.html">Read the methodology</a>
       </div>
     </div>
-    <img class="hero-mark" src="assets/logo-square.jpg" alt="Blue and gold wizard-hat seal used by FFTCGFinance">
+    <img class="hero-mark" src="logo-square.jpg" alt="Blue and gold wizard-hat seal used by FFTCGFinance">
   </div>
 </section>
 <section class="status-strip">
-  <div class="wrap status-grid">
-    <div class="status-item"><strong>One current figure</strong><span>per tracked population record</span></div>
-    <div class="status-item"><strong>Visible revisions</strong><span>no silent historical changes</span></div>
-    <div class="status-item"><strong>Evidence-linked</strong><span>findings remain independently reviewable</span></div>
-    <div class="status-item"><strong>Last reviewed</strong><span data-reviewed>20 July 2026</span></div>
-  </div>
+  <div class="wrap status-grid" data-site-status></div>
 </section>
 <section class="section">
   <div class="wrap">
@@ -63,21 +63,39 @@
 </section>
 <section class="section section-muted">
   <div class="wrap">
+    <div class="section-head"><div><div class="kicker">Cloud 1-182L</div><h2>Combined tracked population</h2></div><p>A compact digest-style view of the PSA and Beckett population reports.</p></div>
+    <div class="cloud-summary-grid" data-cloud-summary></div>
+    <div class="hero-actions"><a class="btn" href="populations.html#cloud-population-summary">View the full breakdown</a></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><div><div class="kicker">How records work</div><h2>Official → reviewed → adjusted</h2></div></div>
+    <div class="process-grid">
+      <article class="card"><div class="process-number">01</div><h3>Official figure</h3><p>The grading-company figure is preserved exactly as the dated basis.</p></article>
+      <article class="card"><div class="process-number">02</div><h3>Evidence review</h3><p>Submissions remain pending until the visible evidence supports a documented finding.</p></article>
+      <article class="card"><div class="process-number">03</div><h3>Archive adjustment</h3><p>Accepted exclusions are shown separately; the result is never described as an official population.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section section-muted">
+  <div class="wrap">
     <div class="section-head"><div><div class="kicker">Archive structure</div><h2>Built to remain understandable.</h2></div></div>
     <div class="grid-4">
       <article class="card"><div class="card-number">01</div><h3>Population records</h3><p>Official counts, accepted exclusions, current adjusted estimates, review dates and revision numbers.</p><a class="card-link" href="populations.html">Browse records →</a></article>
       <article class="card"><div class="card-number">02</div><h3>Variant guide</h3><p>Documented visual and text-level distinctions used when evaluating Opus I Wave 1 and Wave 2 examples.</p><a class="card-link" href="variants.html">Open the guide →</a></article>
       <article class="card"><div class="card-number">03</div><h3>Market records</h3><p>Treno Exchange preserves verified sales, auctions, ended listings and other observable market events.</p><a class="card-link" href="market.html">Open Treno Exchange →</a></article>
-      <article class="card"><div class="card-number">04</div><h3>Archive index</h3><p>Compact MA and SUB indexes link directly to the full canonical records on Reddit.</p><a class="card-link" href="evidence.html">Browse archive links →</a></article>
+      <article class="card"><div class="card-number">04</div><h3>Archive index</h3><p>Compact MA, SUB and TE indexes link directly to the full canonical records on Reddit.</p><a class="card-link" href="evidence.html">Browse archive links →</a></article>
     </div>
   </div>
 </section>
 <section class="section">
   <div class="wrap detail-grid">
-    <div><div class="kicker">Research principle</div><h2>Evidence first.<br>Conclusions follow.</h2><p class="lede">The archive distinguishes official population figures from independent adjustments. A submission does not change a population until the evidence has been reviewed and recorded as an accepted finding.</p></div>
-    <aside class="card"><h3>Archive status</h3><dl class="meta-list"><div class="meta-row"><dt>Revision</dt><dd data-revision>1</dd></div><div class="meta-row"><dt>Last reviewed</dt><dd data-reviewed>20 July 2026</dd></div><div class="meta-row"><dt>Primary community</dt><dd><a href="https://www.reddit.com/r/FFTCGFinance/">r/FFTCGFinance</a></dd></div><div class="meta-row"><dt>Master Index</dt><dd><a href="https://www.reddit.com/r/FFTCGFinance/s/KRcXDXnGiP">Open on Reddit</a></dd></div></dl></aside>
+    <div><div class="kicker">Research principle</div><h2>Evidence first.<br>Conclusions follow.</h2><p class="lede">A submission does not change a population until the evidence has been reviewed and recorded as an accepted finding.</p></div>
+    <aside class="card"><h3>Archive status</h3><dl class="meta-list"><div class="meta-row"><dt>Revision</dt><dd data-revision>4</dd></div><div class="meta-row"><dt>Last reviewed</dt><dd data-reviewed>20 July 2026</dd></div><div class="meta-row"><dt>Primary community</dt><dd><a href="https://www.reddit.com/r/FFTCGFinance/">r/FFTCGFinance</a></dd></div><div class="meta-row"><dt>Master Index</dt><dd><a href="https://www.reddit.com/r/FFTCGFinance/s/KRcXDXnGiP">Open on Reddit</a></dd></div></dl></aside>
   </div>
-</section></main>
+</section>
+</main>
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div>
@@ -85,15 +103,19 @@
       <p class="small">Independent Final Fantasy TCG population, variant and market research. Evidence first. Conclusions follow.</p>
       <p class="small">Unofficial and not affiliated with Square Enix, PSA, Beckett, Reddit or any marketplace.</p>
     </div>
-    <div class="footer-links">
-      <a href="https://www.reddit.com/r/FFTCGFinance/">Reddit</a>
-      <a href="https://www.youtube.com/@FFTCGFinance">YouTube</a>
-      <a href="https://github.com/FFTCGFinance">GitHub</a>
-      <a href="mailto:research@fftcgfinance.com">Contact</a>
+    <div class="footer-side">
+      <div class="footer-links">
+        <a href="https://www.reddit.com/r/FFTCGFinance/">Reddit</a>
+        <a href="https://www.youtube.com/@FFTCGFinance">YouTube</a>
+        <a href="https://github.com/FFTCGFinance">GitHub</a>
+        <a href="changelog.html">Change log</a>
+        <a href="mailto:research@fftcgfinance.com">Contact</a>
+      </div>
+      <a class="hidden-coin" href="https://stellazzio.com/" target="_blank" rel="noopener" aria-label="Open the hidden coin" data-hidden-coin><span aria-hidden="true">✦</span></a>
     </div>
   </div>
 </footer>
-<script src="assets/data.js"></script>
-<script src="assets/app.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
