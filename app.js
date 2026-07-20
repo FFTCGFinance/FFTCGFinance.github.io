@@ -38,7 +38,7 @@
     host.innerHTML = [
       ['PSA 10 official', cloud.psa10Official, 'official basis'],
       ['PSA 10 adjusted', cloud.psa10Adjusted, `${cloud.psa10Exclusions} exclusions`],
-      ['Beckett 9.5+', cloud.beckett95PlusTotal, 'matching high grades'],
+      ['Beckett 9.5+', cloud.beckett95PlusTotal, `${cloud.beckett95PlusAdjusted} adjusted`],
       ['Combined high-grade', cloud.combinedHighGradeOfficial, `${cloud.combinedHighGradeAdjusted} adjusted`, true]
     ].map(([label,value,note,featured]) => `<div class="cloud-stat${featured?' featured':''}"><span>${esc(label)}</span><strong>${esc(value)}</strong><span>${esc(note)}</span></div>`).join('');
   });

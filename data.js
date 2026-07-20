@@ -550,12 +550,14 @@ window.FFTCG_DATA = {
       "The matching-grade comparison uses PSA 10 and Beckett 9.5 or higher only.",
       "Beckett 9.5+ comprises 6 Black Label 10s, 35 Pristine 10s and 107 BGS 9.5s.",
       "The official combined high-grade basis is 239 grading entries: 91 PSA 10 plus 148 Beckett 9.5+.",
-      "Applying the five accepted PSA exclusions produces an archive-adjusted combined estimate of 234.",
+      "Applying five accepted PSA exclusions and three accepted Beckett exclusions produces an archive-adjusted combined estimate of 231.",
       "Beckett’s Premium Foil population combines both print configurations, and combined totals are grading-company entries rather than unique physical cards."
     ],
     "beckett95PlusTotal": 148,
-    "combinedHighGradeOfficial": 239,
-    "combinedHighGradeAdjusted": 234,
+"beckett95PlusExclusions": 3,
+"beckett95PlusAdjusted": 145,
+"combinedHighGradeOfficial": 239,
+"combinedHighGradeAdjusted": 231,
     "beckett95PlusBreakdown": [
       {
         "grade": "Black Label 10",
