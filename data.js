@@ -662,6 +662,14 @@ window.FFTCG_DATA = {
   "changelog": [
     {
       "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 10",
+      "items": [
+        "Reordered primary navigation to Home, Market Records, Populations and Variant Guide for faster access to the market archive.",
+        "Added a prominent View market records call-to-action beside the population and methodology links on the home page."
+      ]
+    },
+    {
+      "date": "21 Jul 2026",
       "title": "Website Version 10 — Revision 9",
       "items": [
         "Removed the duplicate current-revision summary from Methodology; the change log is now the single website revision record.",

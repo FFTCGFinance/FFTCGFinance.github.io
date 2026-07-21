@@ -1,4 +1,4 @@
-# FFTCGFinance website — Version 10 Revision 8
+# FFTCGFinance website — Version 10 — Revision 10
 
 A deploy-ready static build for `fftcgfinance.com`.
 
