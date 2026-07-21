@@ -662,6 +662,15 @@ window.FFTCG_DATA = {
   "changelog": [
     {
       "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 9",
+      "items": [
+        "Removed the duplicate current-revision summary from Methodology; the change log is now the single website revision record.",
+        "Replaced the full SUB-001–SUB-010 table with three representative selected submissions.",
+        "Kept the complete submissions archive available through SUB-000 and global archive search."
+      ]
+    },
+    {
+      "date": "21 Jul 2026",
       "title": "Website Version 10 — Revision 8",
       "items": [
         "Rebuilt the mobile market chart with a dedicated tall SVG coordinate system matched to the chart container.",

@@ -98,8 +98,13 @@
     <tr data-ma-row="${esc([r.id,r.subject,r.role,r.status].join(' '))}"><td><a class="record-link" href="${esc(r.url)}"><strong>${esc(r.id)}</strong></a></td><td>${esc(r.subject)}</td><td>${esc(r.role)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td></tr>`).join('');
 
   const subBody = document.querySelector('[data-sub-body]');
-  if (subBody) subBody.innerHTML = (data.submissions || []).map(r => `
+  if (subBody) {
+    const selectedSubIds = new Set(['SUB-001', 'SUB-003', 'SUB-005']);
+    subBody.innerHTML = (data.submissions || [])
+      .filter(r => selectedSubIds.has(r.id))
+      .map(r => `
     <tr data-sub-row="${esc([r.id,r.subject,r.status,r.result].join(' '))}"><td><a class="record-link" href="${esc(r.url)}"><strong>${esc(r.id)}</strong></a></td><td>${esc(r.subject)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td><td>${esc(r.result)}</td></tr>`).join('');
+  }
 
   const teBody = document.querySelector('[data-te-body]');
   if (teBody) teBody.innerHTML = (data.trenoRecords || []).map(r => `
