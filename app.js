@@ -20,7 +20,17 @@
     "TE-026":"https://www.reddit.com/r/FFTCGFinance/s/T9tm1p86ML",
     "TE-028":"https://www.reddit.com/r/FFTCGFinance/s/AUCk62jddr",
     "TE-029":"https://www.reddit.com/r/FFTCGFinance/s/IDiTA3WD3z",
-    "TE-030":"https://www.reddit.com/r/FFTCGFinance/s/xk6Whm1TCg"
+    "TE-030":"https://www.reddit.com/r/FFTCGFinance/s/xk6Whm1TCg","TE-014":"https://www.reddit.com/r/FFTCGFinance/s/0Z0lCfYMqo",
+    "TE-015":"https://www.reddit.com/r/FFTCGFinance/s/zYJXIrDOts",
+    "TE-016":"https://www.reddit.com/r/FFTCGFinance/s/djdXh1B43t",
+    "TE-017":"https://www.reddit.com/r/FFTCGFinance/s/7Qr8GyRgua",
+    "TE-018":"https://www.reddit.com/r/FFTCGFinance/s/bJ98mAYu8t",
+    "TE-019":"https://www.reddit.com/r/FFTCGFinance/s/DBlXiX2Say",
+    "TE-020":"https://www.reddit.com/r/FFTCGFinance/s/ld47kk6mEm",
+    "TE-031":"https://www.reddit.com/r/FFTCGFinance/s/mXKiZbcYnz",
+    "TE-032":"https://www.reddit.com/r/FFTCGFinance/s/0jvNJJVQ78",
+    "TE-033":"https://www.reddit.com/r/FFTCGFinance/s/elaiIT7EUE",
+    "TE-034":"https://www.reddit.com/r/FFTCGFinance/s/oa65PAIKCS",
 ,"TE-027":"https://www.reddit.com/r/FFTCGFinance/s/nHDO73IQkS",
     "TE-035":"https://www.reddit.com/r/FFTCGFinance/s/zQhqapRqzz",
     "TE-036":"https://www.reddit.com/r/FFTCGFinance/s/OZoPEJLath",
@@ -239,7 +249,7 @@
         return;
       }
 
-      const width=1000,height=540,m={top:32,right:32,bottom:62,left:78};
+      const width=1000,height=700,m={top:40,right:32,bottom:90,left:78};
       const dates=records.map(r=>new Date(r.date+'T00:00:00Z').getTime());
       const minX=Math.min(...dates),maxX=Math.max(...dates);
       const maxPrice=Math.max(...records.map(r=>r.price));
@@ -265,7 +275,6 @@
           out+=`<circle cx="${xx}" cy="${yy}" r="6" fill="${colours[category]}" stroke="#07090d" stroke-width="3"/><circle class="chart-hit" data-market-point="${idx}" cx="${xx}" cy="${yy}" r="16" fill="transparent" tabindex="0" role="button" aria-label="${esc(r.category+', '+r.displayDate+', '+r.displayPrice+', '+r.id)}"/>`;
         });
       }
-
       svg.innerHTML=out;
       svg.querySelectorAll('[data-market-point]').forEach(point=>{
         const record=(data.marketRecords||[])[Number(point.dataset.marketPoint)];

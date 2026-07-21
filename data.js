@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 10,
+  "revision": 11,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -672,6 +672,17 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 2",
+      "items": [
+        "Simplified the market chart to display True Wave 1 and Mislabelled Wave 2 printing histories only.",
+        "Removed grade-based chart separation and integrated True Wave 1 BGS records into the printing history.",
+        "Expanded the actual chart plotting area and vertical scale.",
+        "Added remaining published TE evidence links throughout Market Records."
+      ]
+    },
+
     {
       "date": "21 Jul 2026",
       "title": "Website Version 10 — Revision 1",

@@ -389,3 +389,7 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
 @media (max-width:650px){.market-chart{height:360px;}}
 
 @media (max-width:650px){.market-chart{height:420px;}}
+
+/* Version 10 Revision 2: chart follows printing classification only */
+.grade-toggle,.grade-controls{display:none!important;}
+@media(max-width:650px){.market-chart{height:420px;}}
