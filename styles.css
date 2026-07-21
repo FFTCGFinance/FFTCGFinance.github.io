@@ -414,3 +414,23 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
 /* Version 10 Revision 7 chart sizing */
 .market-chart{height:760px;min-height:760px;}
 @media(max-width:650px){.market-chart{height:520px;min-height:520px;}}
+
+
+/* Website Version 10 — Revision 8: mobile chart uses a matching tall SVG coordinate system */
+.market-chart {
+  width:100%;
+  height:auto;
+  min-height:0;
+  aspect-ratio:1000 / 760;
+}
+
+@media (max-width:650px) {
+  .market-chart {
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:1000 / 1380;
+  }
+  .chart-axis-label { font-size:17px; }
+  .chart-axis-title { font-size:17px; }
+}

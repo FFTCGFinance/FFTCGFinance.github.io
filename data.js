@@ -662,6 +662,16 @@ window.FFTCG_DATA = {
   "changelog": [
     {
       "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 8",
+      "items": [
+        "Rebuilt the mobile market chart with a dedicated tall SVG coordinate system matched to the chart container.",
+        "Expanded the actual grid, axes, plotted lines and points vertically instead of enlarging only the surrounding box.",
+        "Removed the superseded note stating that TE-009 was not plotted."
+      ]
+    },
+
+    {
+      "date": "21 Jul 2026",
       "title": "Website Version 10 — Revision 7",
       "items": [
         "Standardised Market Records display prices using rounded values while preserving underlying exact values.",

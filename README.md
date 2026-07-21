@@ -1,4 +1,4 @@
-# FFTCGFinance website — v8
+# FFTCGFinance website — Version 10 Revision 8
 
 A deploy-ready static build for `fftcgfinance.com`.
 
@@ -25,8 +25,9 @@ Upload only `data.js` when the structure and design have not changed.
 
 Plausible analytics remains enabled on every page.
 
-## v8 focus
+## Version 10 Revision 8 focus
 
-- Cloud population comparison is now PSA 10 versus Beckett 9.5+.
-- The market chart no longer exposes a PSA 9 control.
-- The homepage Easter egg uses the established Stellazzio coin treatment.
+- The mobile market chart uses a dedicated tall SVG coordinate system so its grid, axes and plotted data fill the chart frame.
+- The desktop chart retains its wider research-dashboard layout.
+- Market history remains separated by True Wave 1 and Mislabelled Wave 2.
+- Cache-busting asset versions are applied to help mobile Safari load the current release.

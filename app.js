@@ -251,7 +251,13 @@
         return;
       }
 
-      const width=1000,height=760,m={top:40,right:32,bottom:110,left:78};
+      const isMobile = window.matchMedia('(max-width:650px)').matches;
+      const width = 1000;
+      const height = isMobile ? 1380 : 760;
+      const m = isMobile
+        ? {top:55,right:32,bottom:135,left:78}
+        : {top:40,right:32,bottom:110,left:78};
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
       const dates=records.map(r=>new Date(r.date+'T00:00:00Z').getTime());
       const minX=Math.min(...dates),maxX=Math.max(...dates);
       const maxPrice=Math.max(...records.map(r=>r.price));
@@ -324,6 +330,9 @@
       if(window.FFTCG_TRACK)window.FFTCG_TRACK('Cloud Chart Filter',{filter:'All tracked',state:'Selected'});
       render();
     });
+    const chartMedia = window.matchMedia('(max-width:650px)');
+    if (chartMedia.addEventListener) chartMedia.addEventListener('change', render);
+    else if (chartMedia.addListener) chartMedia.addListener(render);
     render();
   }
 })();
