@@ -20,7 +20,8 @@
     "TE-026":"https://www.reddit.com/r/FFTCGFinance/s/T9tm1p86ML",
     "TE-028":"https://www.reddit.com/r/FFTCGFinance/s/AUCk62jddr",
     "TE-029":"https://www.reddit.com/r/FFTCGFinance/s/IDiTA3WD3z",
-    "TE-030":"https://www.reddit.com/r/FFTCGFinance/s/xk6Whm1TCg","TE-014":"https://www.reddit.com/r/FFTCGFinance/s/0Z0lCfYMqo",
+    "TE-030":"https://www.reddit.com/r/FFTCGFinance/s/xk6Whm1TCg",
+    "TE-014":"https://www.reddit.com/r/FFTCGFinance/s/0Z0lCfYMqo",
     "TE-015":"https://www.reddit.com/r/FFTCGFinance/s/zYJXIrDOts",
     "TE-016":"https://www.reddit.com/r/FFTCGFinance/s/djdXh1B43t",
     "TE-017":"https://www.reddit.com/r/FFTCGFinance/s/7Qr8GyRgua",
@@ -31,7 +32,7 @@
     "TE-032":"https://www.reddit.com/r/FFTCGFinance/s/0jvNJJVQ78",
     "TE-033":"https://www.reddit.com/r/FFTCGFinance/s/elaiIT7EUE",
     "TE-034":"https://www.reddit.com/r/FFTCGFinance/s/oa65PAIKCS",
-,"TE-027":"https://www.reddit.com/r/FFTCGFinance/s/nHDO73IQkS",
+    "TE-027":"https://www.reddit.com/r/FFTCGFinance/s/nHDO73IQkS",
     "TE-035":"https://www.reddit.com/r/FFTCGFinance/s/zQhqapRqzz",
     "TE-036":"https://www.reddit.com/r/FFTCGFinance/s/OZoPEJLath",
     "TE-037":"https://www.reddit.com/r/FFTCGFinance/s/OoZCTpUAOq"  };
