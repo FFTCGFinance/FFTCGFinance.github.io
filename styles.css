@@ -301,3 +301,37 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
     padding-bottom:4px;
   }
 }
+
+
+/* Mobile chart mode: compact iPhone presentation while preserving desktop dashboard */
+@media (max-width:650px) {
+  .chart-frame {
+    overflow:hidden;
+  }
+
+  .market-chart {
+    width:100%;
+    min-width:0;
+    height:300px;
+    display:block;
+  }
+
+  .chart-card {
+    padding:12px;
+  }
+
+  .chart-note {
+    margin-top:16px;
+  }
+
+  .chart-controls {
+    gap:10px;
+  }
+
+  .series-toggle,
+  .grade-toggle,
+  .range-control,
+  .chart-reset {
+    min-height:46px;
+  }
+}

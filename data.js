@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 5,
+  "revision": 6,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -619,6 +619,15 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website revision 6 · mobile market interface",
+      "items": [
+        "Added a compact iPhone-optimised market chart layout while preserving the full desktop chart presentation.",
+        "Improved mobile chart sizing and removed horizontal chart scrolling.",
+        "Changed Market Records display order to newest recorded events first."
+      ]
+    },
     {
       "date": "20 Jul 2026",
       "title": "Website revision 5 · build v8",
