@@ -3,6 +3,28 @@
   const esc = value => String(value ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const slug = value => String(value).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   const badgeClass = status => /pending/i.test(status) ? 'pending' : /current|active|reviewed/i.test(status) ? '' : 'neutral';
+  const evidenceUrls = {
+    "TE-002":"https://www.reddit.com/r/FFTCGFinance/s/VLS8aXHmmr",
+    "TE-004":"https://www.reddit.com/r/FFTCGFinance/s/AM9i5kzTa7",
+    "TE-005":"https://www.reddit.com/r/FFTCGFinance/s/ms0i0yRZf8",
+    "TE-006":"https://www.reddit.com/r/FFTCGFinance/s/YSKSpql22v",
+    "TE-007":"https://www.reddit.com/r/FFTCGFinance/s/bptDUnhMhc",
+    "TE-008":"https://www.reddit.com/r/FFTCGFinance/s/VkjSBALGQh",
+    "TE-009":"https://www.reddit.com/r/FFTCGFinance/s/lHGzda9MjS",
+    "TE-010":"https://www.reddit.com/r/FFTCGFinance/s/FO0OyV66rT",
+    "TE-011":"https://www.reddit.com/r/FFTCGFinance/s/0ywiswq5m2",
+    "TE-012":"https://www.reddit.com/r/FFTCGFinance/s/xiK11OMUMC",
+    "TE-013":"https://www.reddit.com/r/FFTCGFinance/s/z7hlIxerse",
+    "TE-021":"https://www.reddit.com/r/FFTCGFinance/s/6LdRFbhck9",
+    "TE-025":"https://www.reddit.com/r/FFTCGFinance/s/5rchNveifv",
+    "TE-026":"https://www.reddit.com/r/FFTCGFinance/s/T9tm1p86ML",
+    "TE-028":"https://www.reddit.com/r/FFTCGFinance/s/AUCk62jddr",
+    "TE-029":"https://www.reddit.com/r/FFTCGFinance/s/IDiTA3WD3z",
+    "TE-030":"https://www.reddit.com/r/FFTCGFinance/s/xk6Whm1TCg"
+,"TE-027":"https://www.reddit.com/r/FFTCGFinance/s/nHDO73IQkS",
+    "TE-035":"https://www.reddit.com/r/FFTCGFinance/s/zQhqapRqzz",
+    "TE-036":"https://www.reddit.com/r/FFTCGFinance/s/OZoPEJLath",
+    "TE-037":"https://www.reddit.com/r/FFTCGFinance/s/OoZCTpUAOq"  };
 
   document.querySelectorAll('[data-reviewed]').forEach(el => el.textContent = data.reviewed || '—');
   document.querySelectorAll('[data-revision]').forEach(el => el.textContent = data.revision || '—');
@@ -22,7 +44,7 @@
       <tr id="pop-${slug(r.card)}" data-search-row="${esc([r.card,r.scope,r.record,r.status].join(' '))}">
         <td><strong>${esc(r.card)}</strong><div class="small">${esc(r.scope)}</div></td>
         <td class="num">${r.official}</td><td class="num">${r.exclusions}</td><td class="num">${r.adjusted}</td>
-        <td>${esc(r.record)}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td>
+        <td><a href="${(data.archiveRecords || []).find(a => a.id === r.record)?.url || '#'}">${esc(r.record)}</a></td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td>
       </tr>`).join('');
   }
 
@@ -76,7 +98,7 @@
     .filter(r => ['PSA 10','Beckett'].includes(r.gradeGroup))
     .sort((a,b) => new Date(b.date) - new Date(a.date))
     .map(r => `
-    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td>${r.evidenceUrl ? `<a href="${esc(r.evidenceUrl)}">${esc(r.id)}</a>` : `<span>${esc(r.id)}</span>`}</td></tr>`).join('');
+    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td>${evidenceUrls[r.id] ? `<a href="${evidenceUrls[r.id]}">${esc(r.id)}</a>` : `<span>${esc(r.id)}</span>`}</td></tr>`).join('');
 
   const trueCount = (data.marketRecords || []).filter(r => r.category === 'True Wave 1').length;
   const wave2Count = (data.marketRecords || []).filter(r => r.category === 'Mislabelled Wave 2').length;

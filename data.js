@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 7,
+  "revision": 8,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -539,6 +539,59 @@ window.FFTCG_DATA = {
       "plotted": true,
       "gradeGroup": "PSA 10"
     }
+    ,
+    {
+      "id": "TE-037",
+      "date": "2024-08-11",
+      "displayDate": "11 Aug 2024",
+      "category": "True Wave 1",
+      "grade": "BGS 9.5",
+      "price": 850.0,
+      "displayPrice": "$850.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "Beckett"
+    },
+    {
+      "id": "TE-035",
+      "date": "2023-07-27",
+      "displayDate": "27 Jul 2023",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1250.0,
+      "displayPrice": "$1,250.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-036",
+      "date": "2023-09-10",
+      "displayDate": "10 Sep 2023",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 1600.0,
+      "displayPrice": "$1,600.00",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    },
+    {
+      "id": "TE-027",
+      "date": "2025-03-07",
+      "displayDate": "7 Mar 2025",
+      "category": "True Wave 1",
+      "grade": "PSA 10",
+      "price": 904.09,
+      "displayPrice": "$904.09",
+      "platform": "eBay",
+      "status": "Best Offer accepted",
+      "plotted": true,
+      "gradeGroup": "PSA 10"
+    }
   ],
   "websiteBuild": "v8",
   "cloudPopulation": {
@@ -619,6 +672,29 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website revision 9 · market dataset update",
+      "items": [
+        "Added TE-027, TE-035, TE-036 and TE-037 to the market history dataset.",
+        "Added the first True Wave 1 BGS 9.5 record to the high-grade market chart.",
+        "Updated chart plotting to reflect the expanded market record set.",
+        "No underlying listing dates, prices, grades or classifications were changed."
+      ]
+    },
+
+    {
+      "date": "21 Jul 2026",
+      "title": "Website revision 8 · navigation and presentation updates",
+      "items": [
+        "Linked available MA population records directly to their archive entries.",
+        "Linked available TE market references directly to their individual evidence records.",
+        "Added Beckett adjusted population treatment presentation.",
+        "Replaced YouTube footer navigation with Instagram.",
+        "Increased mobile market chart height for improved readability."
+      ]
+    },
+
     {
       "date": "21 Jul 2026",
       "title": "Website revision 7 · market evidence navigation",
