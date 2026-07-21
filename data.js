@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 8,
+  "revision": 10,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -601,7 +601,7 @@ window.FFTCG_DATA = {
     "psa10Adjusted": 86,
     "notes": [
       "The matching-grade comparison uses PSA 10 and Beckett 9.5 or higher only.",
-      "Beckett 9.5+ comprises 6 Black Label 10s, 35 Pristine 10s and 107 BGS 9.5s.",
+      "Beckett 9.5+ comprises 148 grading entries: 6 Black Label 10s, 35 Pristine 10s and 107 BGS 9.5s.",
       "The official combined high-grade basis is 239 grading entries: 91 PSA 10 plus 148 Beckett 9.5+.",
       "Applying five accepted PSA exclusions and three accepted Beckett exclusions produces an archive-adjusted combined estimate of 231.",
       "Beckett’s Premium Foil population combines both print configurations, and combined totals are grading-company entries rather than unique physical cards."
@@ -672,6 +672,19 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 1",
+      "items": [
+        "Simplified the market chart to display True Wave 1 and Mislabelled Wave 2 printing histories only.",
+        "Integrated True Wave 1 BGS high-grade records into the True Wave 1 market history.",
+        "Updated Beckett population treatment to show official, exclusions and archive-adjusted totals.",
+        "Added missing TE evidence navigation links where individual records are published.",
+        "Replaced YouTube footer navigation with Instagram.",
+        "Increased chart height for improved readability."
+      ]
+    },
+
     {
       "date": "21 Jul 2026",
       "title": "Website revision 9 · market dataset update",

@@ -231,7 +231,6 @@
       const records = (data.marketRecords || []).filter(r =>
         r.plotted && Number.isFinite(r.price) &&
         enabledCategories.has(r.category) &&
-        enabledGrades.has(r.gradeGroup) &&
         (!startYear || Number(r.date.slice(0,4)) >= startYear)
       );
 
@@ -255,18 +254,16 @@
       out+=`<text x="20" y="${height/2}" transform="rotate(-90 20 ${height/2})" text-anchor="middle" class="chart-axis-title">Recorded price (USD)</text>`;
 
       for (const category of ['True Wave 1','Mislabelled Wave 2']) {
-        for (const gradeGroup of ['PSA 10','Beckett','Other']) {
-          const series=records.filter(r=>r.category===category&&r.gradeGroup===gradeGroup).sort((a,b)=>a.date.localeCompare(b.date));
-          if (!series.length) continue;
-          if (series.length > 1) {
-            const path=series.map((r,i)=>`${i?'L':'M'} ${x(new Date(r.date+'T00:00:00Z').getTime()).toFixed(2)} ${y(r.price).toFixed(2)}`).join(' ');
-            out+=`<path d="${path}" fill="none" stroke="${colours[category]}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" opacity=".88"${dash[gradeGroup]?` stroke-dasharray="${dash[gradeGroup]}"`:''}/>`;
-          }
-          series.forEach(r=>{
-            const xx=x(new Date(r.date+'T00:00:00Z').getTime()),yy=y(r.price),idx=(data.marketRecords||[]).indexOf(r);
-            out+=`<circle cx="${xx}" cy="${yy}" r="6" fill="${colours[category]}" stroke="#07090d" stroke-width="3"/><circle class="chart-hit" data-market-point="${idx}" cx="${xx}" cy="${yy}" r="16" fill="transparent" tabindex="0" role="button" aria-label="${esc(r.category+', '+r.displayDate+', '+r.displayPrice+', '+r.id)}"/>`;
-          });
+        const series=records.filter(r=>r.category===category).sort((a,b)=>a.date.localeCompare(b.date));
+        if (!series.length) continue;
+        if (series.length > 1) {
+          const path=series.map((r,i)=>`${i?'L':'M'} ${x(new Date(r.date+'T00:00:00Z').getTime()).toFixed(2)} ${y(r.price).toFixed(2)}`).join(' ');
+          out+=`<path d="${path}" fill="none" stroke="${colours[category]}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" opacity=".88"/>`;
         }
+        series.forEach(r=>{
+          const xx=x(new Date(r.date+'T00:00:00Z').getTime()),yy=y(r.price),idx=(data.marketRecords||[]).indexOf(r);
+          out+=`<circle cx="${xx}" cy="${yy}" r="6" fill="${colours[category]}" stroke="#07090d" stroke-width="3"/><circle class="chart-hit" data-market-point="${idx}" cx="${xx}" cy="${yy}" r="16" fill="transparent" tabindex="0" role="button" aria-label="${esc(r.category+', '+r.displayDate+', '+r.displayPrice+', '+r.id)}"/>`;
+        });
       }
 
       svg.innerHTML=out;
