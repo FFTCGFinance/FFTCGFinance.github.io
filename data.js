@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 6,
+  "revision": 7,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -619,6 +619,15 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website revision 7 · market evidence navigation",
+      "items": [
+        "Removed misleading evidence links that redirected individual TE references to the TE-001 overview.",
+        "Prepared individual evidence linking support where dedicated TE records are available.",
+        "Converted Market Records to a mobile-friendly card layout on small screens."
+      ]
+    },
     {
       "date": "21 Jul 2026",
       "title": "Website revision 6 · mobile market interface",

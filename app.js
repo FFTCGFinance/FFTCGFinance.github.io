@@ -76,7 +76,7 @@
     .filter(r => ['PSA 10','Beckett'].includes(r.gradeGroup))
     .sort((a,b) => new Date(b.date) - new Date(a.date))
     .map(r => `
-    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td><a href="${esc((data.marketSource || {}).url || '#')}">${esc(r.id)}</a></td></tr>`).join('');
+    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td>${r.evidenceUrl ? `<a href="${esc(r.evidenceUrl)}">${esc(r.id)}</a>` : `<span>${esc(r.id)}</span>`}</td></tr>`).join('');
 
   const trueCount = (data.marketRecords || []).filter(r => r.category === 'True Wave 1').length;
   const wave2Count = (data.marketRecords || []).filter(r => r.category === 'Mislabelled Wave 2').length;

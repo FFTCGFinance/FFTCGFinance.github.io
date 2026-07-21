@@ -335,3 +335,53 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
     min-height:46px;
   }
 }
+
+
+@media (max-width:650px) {
+  .market-table {
+    min-width:0;
+    width:100%;
+  }
+
+  .market-table thead {
+    display:none;
+  }
+
+  .market-table tbody,
+  .market-table tr,
+  .market-table td {
+    display:block;
+    width:100%;
+  }
+
+  .market-table tr {
+    padding:16px;
+    margin-bottom:12px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:rgba(255,255,255,.02);
+  }
+
+  .market-table td {
+    border:0;
+    padding:5px 0;
+  }
+
+  .market-table td::before {
+    display:inline-block;
+    width:110px;
+    color:var(--muted);
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:700;
+  }
+
+  .market-table td:nth-child(1)::before { content:"Date"; }
+  .market-table td:nth-child(2)::before { content:"Class"; }
+  .market-table td:nth-child(3)::before { content:"Grade"; }
+  .market-table td:nth-child(4)::before { content:"Price"; }
+  .market-table td:nth-child(5)::before { content:"Platform"; }
+  .market-table td:nth-child(6)::before { content:"Status"; }
+  .market-table td:nth-child(7)::before { content:"Evidence"; }
+}
