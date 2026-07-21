@@ -1,6 +1,7 @@
 (function () {
   const data = window.FFTCG_DATA || {};
-  const esc = value => String(value ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const esc = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
+  const displayPrice = value => Number.isFinite(Number(value)) ? '$' + Math.round(Number(value)).toLocaleString('en-US') : '—';
   const slug = value => String(value).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   const badgeClass = status => /pending/i.test(status) ? 'pending' : /current|active|reviewed/i.test(status) ? '' : 'neutral';
   const evidenceUrls = {
@@ -109,7 +110,7 @@
     .filter(r => ['PSA 10','Beckett'].includes(r.gradeGroup))
     .sort((a,b) => new Date(b.date) - new Date(a.date))
     .map(r => `
-    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${esc(r.displayPrice)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td>${evidenceUrls[r.id] ? `<a href="${evidenceUrls[r.id]}">${esc(r.id)}</a>` : `<span>${esc(r.id)}</span>`}</td></tr>`).join('');
+    <tr><td>${esc(r.displayDate)}</td><td>${esc(r.category)}</td><td>${esc(r.grade)}</td><td class="num">${displayPrice(r.price)}</td><td>${esc(r.platform)}</td><td>${esc(r.status)}${r.plotted ? '' : '<div class="small">Not plotted: native GBP</div>'}</td><td>${evidenceUrls[r.id] ? `<a href="${evidenceUrls[r.id]}">${esc(r.id)}</a>` : `<span>${esc(r.id)}</span>`}</td></tr>`).join('');
 
   const trueCount = (data.marketRecords || []).filter(r => r.category === 'True Wave 1').length;
   const wave2Count = (data.marketRecords || []).filter(r => r.category === 'Mislabelled Wave 2').length;
@@ -250,7 +251,7 @@
         return;
       }
 
-      const width=1000,height=700,m={top:40,right:32,bottom:90,left:78};
+      const width=1000,height=760,m={top:40,right:32,bottom:110,left:78};
       const dates=records.map(r=>new Date(r.date+'T00:00:00Z').getTime());
       const minX=Math.min(...dates),maxX=Math.max(...dates);
       const maxPrice=Math.max(...records.map(r=>r.price));
@@ -294,7 +295,7 @@
 
     function showTooltip(ev,point,r){
       if(!tooltip)return;
-      tooltip.innerHTML=`<strong>${esc(r.displayPrice)}</strong><span>${esc(r.displayDate)} · ${esc(r.id)}</span><span>${esc(r.category)}</span><span>${esc(r.grade)} · ${esc(r.platform)}</span><span>${esc(r.status)}</span>`;
+      tooltip.innerHTML=`<strong>${displayPrice(r.price)}</strong><span>${esc(r.displayDate)} · ${esc(r.id)}</span><span>${esc(r.category)}</span><span>${esc(r.grade)} · ${esc(r.platform)}</span><span>${esc(r.status)}</span>`;
       tooltip.classList.remove('hidden');
       const hostRect=host.getBoundingClientRect();
       let left,top;

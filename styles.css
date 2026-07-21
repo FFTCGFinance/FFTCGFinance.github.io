@@ -410,3 +410,7 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
     min-height: 520px;
   }
 }
+
+/* Version 10 Revision 7 chart sizing */
+.market-chart{height:760px;min-height:760px;}
+@media(max-width:650px){.market-chart{height:520px;min-height:520px;}}

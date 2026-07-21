@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 13,
+  "revision": 14,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -660,6 +660,16 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 7",
+      "items": [
+        "Standardised Market Records display prices using rounded values while preserving underlying exact values.",
+        "Expanded the actual chart drawing area and vertical scale.",
+        "Updated chart treatment wording to reflect printing history rather than grading filters."
+      ]
+    },
+
     {
       "date": "21 Jul 2026",
       "title": "Website Version 10 — Revision 6",
