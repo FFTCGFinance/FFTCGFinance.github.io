@@ -393,3 +393,20 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
 /* Version 10 Revision 2: chart follows printing classification only */
 .grade-toggle,.grade-controls{display:none!important;}
 @media(max-width:650px){.market-chart{height:420px;}}
+
+/* Version 10 Revision 6: chart fills its container correctly */
+.market-chart {
+  height: 560px;
+  min-height: 560px;
+}
+
+@media (max-width:650px) {
+  .chart-frame {
+    height: auto;
+  }
+
+  .market-chart {
+    height: 520px;
+    min-height: 520px;
+  }
+}

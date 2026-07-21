@@ -1,6 +1,6 @@
 window.FFTCG_DATA = {
   "reviewed": "20 July 2026",
-  "revision": 11,
+  "revision": 13,
   "populations": [
     {
       "card": "Cloud 1-182L",
@@ -363,11 +363,11 @@ window.FFTCG_DATA = {
       "displayDate": "7 Oct 2024",
       "category": "True Wave 1",
       "grade": "PSA 10",
-      "price": null,
-      "displayPrice": "~£489.39",
+      "price": 640.37,
+      "displayPrice": "$640.00",
       "platform": "eBay",
       "status": "Observed transaction",
-      "plotted": false,
+      "plotted": true,
       "gradeGroup": "PSA 10"
     },
     {
@@ -481,7 +481,7 @@ window.FFTCG_DATA = {
       "category": "True Wave 1",
       "grade": "PSA 10",
       "price": 1343.79,
-      "displayPrice": "~$1,343.79",
+      "displayPrice": "$1,344",
       "platform": "eBay",
       "status": "Best Offer accepted",
       "plotted": true,
@@ -579,19 +579,7 @@ window.FFTCG_DATA = {
       "plotted": true,
       "gradeGroup": "PSA 10"
     },
-    {
-      "id": "TE-027",
-      "date": "2025-03-07",
-      "displayDate": "7 Mar 2025",
-      "category": "True Wave 1",
-      "grade": "PSA 10",
-      "price": 904.09,
-      "displayPrice": "$904.09",
-      "platform": "eBay",
-      "status": "Best Offer accepted",
-      "plotted": true,
-      "gradeGroup": "PSA 10"
-    }
+
   ],
   "websiteBuild": "v8",
   "cloudPopulation": {
@@ -672,6 +660,44 @@ window.FFTCG_DATA = {
     }
   ],
   "changelog": [
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 6",
+      "items": [
+        "Adjusted market chart sizing so the plotted chart fills the available chart container.",
+        "Increased chart height without increasing unused empty space.",
+        "Improved mobile chart readability."
+      ]
+    },
+
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 5",
+      "items": [
+        "Removed the approximation marker from TE-006 display pricing.",
+        "Standardised market table presentation by removing unnecessary approximation symbols."
+      ]
+    },
+
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 4",
+      "items": [
+        "Removed approximation markers from the converted TE-009 USD display value.",
+        "Kept exact underlying values for chart calculations while maintaining cleaner table presentation."
+      ]
+    },
+
+    {
+      "date": "21 Jul 2026",
+      "title": "Website Version 10 — Revision 3",
+      "items": [
+        "Converted the 07/10/2024 GBP observation to an approximate USD display value of $640.00 using the historical exchange rate.",
+        "Updated TE-009 to plot on the market chart.",
+        "Removed duplicate TE-027 market dataset entry."
+      ]
+    },
+
     {
       "date": "21 Jul 2026",
       "title": "Website Version 10 — Revision 2",
