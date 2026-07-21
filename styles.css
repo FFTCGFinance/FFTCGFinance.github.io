@@ -259,3 +259,45 @@ tbody tr:hover { background:rgba(37,53,76,.25); }
   .market-chart { min-width:700px; }
   .chart-frame { overflow-x:auto; }
 }
+
+
+/* Mobile market terminal refinements */
+@media (max-width:650px) {
+  .chart-card {
+    padding: 12px;
+  }
+
+  .chart-frame {
+    margin-left: -4px;
+    margin-right: -4px;
+    padding-bottom: 4px;
+  }
+
+  .market-chart {
+    min-width: 560px;
+    height: 320px;
+  }
+
+  .chart-frame canvas,
+  .chart-frame svg {
+    max-width: none;
+  }
+
+  .table-wrap {
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .market-table {
+    min-width:640px;
+  }
+
+  .market-table td,
+  .market-table th {
+    white-space:normal;
+  }
+
+  .nav {
+    padding-bottom:4px;
+  }
+}
